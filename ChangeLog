@@ -1,0 +1,4130 @@
+2004-10-10 19:52  mbp
+
+	* configure.ac: Bump version to 0.9.7
+
+2004-10-10 19:51  mbp
+
+	* NEWS: Prepare for release
+
+2004-09-10 13:07  mbp
+
+	* check-rdiff: Take options to specify the file size and block len.
+	  The defaults are as before.
+
+2004-09-10 12:48  mbp
+
+	* NEWS, THANKS, delta.c, emit.c, job.c, netint.c, patch.c, scoop.c,
+	  stats.c, trace.h, tube.c: #1024881
+
+	  Use %lu or %llu if possible to print uint64 values, rather than
+	  converting to double.
+
+	  (I can't see any measurable difference in overall benchmarks
+	  because finding sums is so slow, but it's still good to fix.)
+
+2004-09-10 12:07  mbp
+
+	* mdfour.c: rs_mdfour_block (ia64/pa-risc): only copy the block
+	  into an aligned buffer if it's not already aligned.
+
+2004-09-10 12:03  mbp
+
+	* NEWS: Note printf fixes
+
+2004-09-10 12:01  mbp
+
+	* check-rdiff: Test script by Eran Tromer
+
+2004-09-10 11:55  mbp
+
+	* mdfour.c: Mark small mdfour functions as 'inline'.
+
+2004-09-10 11:48  mbp
+
+	* mdfour.c: Add prototype for rs_mdfour_block, and make it static.
+
+	  On i386 rs_mdfour_block can be an inline-able static function
+	  rather than a macro, just for consistency.
+
+2004-09-10 11:37  mbp
+
+	* delta.c, mksum.c, rdiff.c, scoop.c, stream.c: Make sure printf
+	  formats and arguments are consistent for size_t
+
+2004-09-10 11:10  mbp
+
+	* emit.c: Drop quote.
+
+2004-09-10 11:09  mbp
+
+	* emit.c: #1022764
+
+	  Problem: rs_emit_copy_cmd used to use the RS_OP_COPY_N4_N4 format
+	  by default, but this causes integer truncation when one of the
+	  operands is over 32 bits.
+
+	  Fix: Use the right encoding for any operand sizes.
+
+2004-09-10 11:04  mbp
+
+	* THANKS: Thanks Eran!
+
+2004-09-10 11:02  mbp
+
+	* NEWS: Note recent bug fixes.
+
+2004-09-10 11:01  mbp
+
+	* THANKS: Update thanks, remove dead email addresses.  Thanks to
+	  sfllaw for reporting alignment bug.
+
+2004-09-10 10:58  mbp
+
+	* NEWS: Mention unaligned access fix
+
+2004-09-09 16:06  mbp
+
+	* mdfour.c: #879763
+
+	  Problem: mdfour operations failed on pa-risc and gave warnings on
+	  ia64 because of unaligned access.
+
+	  Fix: On non-i386 little-endian machines, copy mdfour input data
+	  into a uint32 aligned buffer before processing.
+
+2004-09-09 12:29  mbp
+
+	* configure.ac: We seem to need AM_CONFIG_HEADER for
+	  autoconf2.53/automake1.4p6.
+
+2003-12-16 15:13  mbp
+
+	* TODO: Add comments from abo on checking for consecutive blocks,
+	  and on the rsync-zlib hack.  Possibly these are premature
+	  optimizations.
+
+2003-12-16 14:07  abo
+
+	* NEWS, THANKS:
+
+	  Updated NEWS and THANKS to include everything and everyone since
+	  the release of 0.9.6.
+
+2003-12-16 11:31  abo
+
+	* NEWS, THANKS:
+
+	  Added large file fixes to NEWS.
+
+	  Added Eran Tromer to thanks for bugreport/fix.
+
+2003-12-16 11:10  abo
+
+	* THANKS, buf.c:
+
+	  Added Dave Coombs to THANKS for C++ wrapper patch.
+
+	  Put #include <config.h> first in buf.c to fix bug
+	  librsync-Bugs-855477 (thanks Eran Tromer).
+
+2003-12-16 11:03  abo
+
+	* librsync.h:
+
+	  Applied Dave Coombs C++ wrapper patch.
+
+2003-12-15 17:18  abo
+
+	* HACKING, NEWS, README.CVS, THANKS, TODO:
+
+	  Updated HACKING, adding reference to README.CVS and THANKS.
+	  Updated descriptions of NEWS and CHANGELOG to explain
+	  auto-generation of ChangeLog.
+
+	  Added empty Changes in 0.9.7 section at top of NEWS.
+
+	  Added reference to HACKING to README.CVS. Added Releasing section
+	  to explain release procedure.
+
+	  Restructured THANKS according to procedure documented in THANKS,
+	  making it more NEWS like with per-release lists of contributors.
+	  Added empty Contributors for 0.9.7 section.
+
+	  Updated TODO, removing resolve ChangeLog entry. Adding stuff
+	  about THANKS convention and consistant text documentation.
+
+2003-12-06 01:32  mbp
+
+	* TODO: Perhaps don't use popt.
+
+2003-12-06 01:31  mbp
+
+	* TODO: Notes about handling of consecutive matches, and about the
+	  rsync hack for gzip.
+
+2003-12-06 01:14  mbp
+
+	* TODO: Add in some more items that I think ought to be done.
+	  Mostly para-technical, like writing some documentation.
+
+2003-12-06 01:13  mbp
+
+	* HACKING: Start of a list of suggested practices for people who'd
+	  like to change the tree.
+
+2003-10-18 02:15  abo
+
+	* AUTHORS, Makefile.am, delta.c, librsync.h, mdfour.c, mdfour.h,
+	  rollsum.c, rollsum.h:
+
+	  Added myself to AUTHORS and Copyright listings on files I
+	  contributed significantly to.
+
+	  Currently configure.ac has no Copyright listing of it's own, but
+	  has an AC_COPYRIGHT macro. I suspect it should still have a
+	  Copyright and $Id: comment block, but I haven't touched it.
+
+2003-09-26 01:46  abo
+
+	* Makefile.am, configure.ac:
+
+	  Changed configure.ac to enable trace by default.
+
+	  Changed Makefile.am to make rdiff a bin_PROGRAM instead of a
+	  noinst, and tidied up a bit.
+
+2003-08-21 18:44  abo
+
+	* Makefile.am, TODO, delta.c, job.h, rollsum.c, rollsum.h:
+	  Applied delta-refactor patch.
+
+2003-08-21 16:13  abo
+
+	* debian/: README.debian, changelog, control, copyright,
+	  crontab.ex, dirs, diversions.ex, docs, inetd.conf.ex, info.ex,
+	  init.d.ex, librsync-dev.dirs, librsync-dev.files, librsync1.dirs,
+	  librsync1.files, manpage.1.ex, menu.ex, rdiff.files, rules,
+	  watch, watch.ex:
+
+	  Updated debian/ files from 0.9.6-2 Debian packages.
+
+2003-08-21 15:32  abo
+
+	* Makefile.am, TODO, copyq.c, isprefix.driver.c, mksum.h:
+
+	  Removed debian/ files from EXTRA_DIST in Makefile.am so they
+	  don't appear in the distribution tarball.
+
+	  Removed isprefix.driver.c which is duplicated in testsuite.
+
+	  Removed unused old copyq.c and mksum.h.
+
+2003-08-05 23:18  abo
+
+	* THANKS:
+	  Added large file debugging thanks to Paul Green.  Added
+	  librsync.h rename thanks to wayned.
+
+2003-08-05 23:10  abo
+
+	* NEWS:
+	  Updated NEWS about large file support.
+
+2003-08-05 18:28  abo
+
+	* netint.c, patch.c, search.c:
+
+	  Added extra checking for invalid LITERAL commands in patch.c.
+
+	  Simplified rs_squirt_netint in netint.c.
+
+	  Fixed rs_search_for_block in patch.c so that it doesn't overflow
+	  when calculating offsets for large files.
+
+2003-08-05 02:41  wayned
+
+	* TODO: Fixed a typo and added another alternative to the popt
+	  TODO.
+
+2003-08-04 02:47  abo
+
+	* netint.c:
+
+	  Fixed incorrect rs_int_len calculation for values needing 8 bytes
+	  caused by "long" integer constant values where we needed
+	  rs_long_t values.
+
+2003-08-04 01:36  abo
+
+	* NEWS:
+
+	  Added NEWS for 0.9.6 about snprinf replacement functions fix.
+
+2003-08-04 01:13  abo
+
+	* README:
+
+	  Updated README info about compiling under win32.
+
+2003-08-04 00:42  abo
+
+	* configure.ac, configure.msc:
+	  Fixed "cl" instead of "lc" typo on configure.ac when setting
+	  CFLAGS.
+
+	  Removed CFLAGS from configure.msc.
+
+2003-08-04 00:36  abo
+
+	* Makefile.am, TODO, configure.ac, configure.msc, rdiff.c,
+	  snprintf.h, stats.c, trace.c, PCbuild/config.h,
+	  PCbuild/librsync-config.h, PCbuild/rdiff.dsp:
+
+	  Added PCbuild/librsync-config.h to distribution and updated
+	  PCbuild files.
+
+	  Fixed replacement functions snprintf and vsnprintf autoconf
+	  checks and snprintf.h to use MSVC _* varients if available. Added
+	  include of snprintf.h to as needed to trace.c, stats.c, and
+	  rdiff.c. Added snprintf.h to Makefile.am SOURCES. LIBADD'd
+	  @LIBOBJS@ to librsync.la instead of default unused LDADD.
+
+	  Added cvs option -z6 for compression to cvs2cl generation of
+	  ChangeLog.
+
+	  Added TODO about splitting snprintf.c into two replacement
+	  functions.  Added TODO about making popt a conditional SUBDIRS.
+
+	  Added CFLAGS to configure.msc again because it seems configure.ac
+	  is not setting it right.
+
+2003-08-02 10:17  abo
+
+	* Makefile.am, NEWS, buf.c, configure.ac, configure.msc:
+	  * configure.ac:   Removed obsolete default sizes from
+	  AC_CHECK_SIZEOF checks.    Added check for FSEEKO    Added
+	  default CFLAGS for MSVC  * buff.c:   added define of fseek to
+	  fseeko if available for large file support.  * NEWS:	 refined
+	  and added descriptions of changes for 0.9.6.	* configure.msc:
+	  simplified and fixed to take into account new autoconf.
+
+2003-07-24 19:12  abo
+
+	* configure.ac, scoop.c, trace.h:
+	  * scoop.c: Removed potentialy confusing debugging code that could
+	  be edited to disable rs_trace.  * trace.h: changed alternate
+	  rs_trace macro arg to be consistant.	* configure.ac: extended
+	  HAVE_VARARG_MACROS test to reject limited varargs found on OSX.
+
+2003-07-24 15:38  abo
+
+	* README.CVS:
+	  Added recommended versions of autotools required for building.
+
+2003-07-24 15:24  abo
+
+	* README.CVS:
+	  Added missing ./configure step in build instructions as noticed
+	  by Mark Bucciarelli.
+
+2003-06-13 05:05  abo
+
+	* configure.ac, trace.c, trace.h:
+	  * configure.ac : added VARARG_MACRO test.  * trace.c,trace.h:
+	  added support for HAVE_VARARG_MACROS instead of using __APPLE__.
+	  fixed trace support for non GNUC compilers.
+
+2003-06-12 16:49  wayned
+
+	* NEWS: Mention the rsync.h -> librsync.h change.
+
+2003-06-12 16:48  wayned
+
+	* doc/main.dox, PCbuild/rdiff.dsp: Changed rsync.h to librsync.h.
+
+2003-06-12 16:21  wayned
+
+	* .cvsignore: Ignore the latest generated files.
+
+2003-06-12 16:08  wayned
+
+	* librsync.h: Fixed a comment that still mentioned rsync.h instead
+	  of librsync.h.
+
+2003-06-12 16:07  wayned
+
+	* librsync.h: Got rid of the rs_long_t typedef and added an include
+	  for librsync-config.h.
+
+2003-06-12 16:06  wayned
+
+	* Makefile.am: Changed rsync.h to librsync.h and added
+	  librsync-config.h.
+
+2003-06-12 16:05  wayned
+
+	* configure.ac: Define the RS_LONG_T variable and substitute it in
+	  the new librsync-config.h.in file.
+
+2003-06-12 16:04  wayned
+
+	* librsync-config.h.in: New input file for our librsync-config.h
+	  include file.
+
+2003-06-12 16:03  wayned
+
+	* doc/librsync.3: Changed rsync.h to librsync.h.
+
+2003-06-12 16:01  wayned
+
+	* mkprototab.pl: - Changed rsync.h to librsync.h.  - Got rid of
+	  run-time warnings.  - Changed multi-line prints to use <<EOT.
+
+2003-06-12 15:50  wayned
+
+	* autogen.sh: Changed rsync.h to librsync.h.
+
+2003-06-12 15:47  wayned
+
+	* base64.c, buf.c, checksum.c, command.c, copyq.c, delta.c, emit.c,
+	  fileutil.c, hex.c, job.c, mdfour.c, mksum.c, msg.c, netint.c,
+	  patch.c, rdiff.c, readsums.c, scoop.c, search.c, stats.c,
+	  stream.c, sumset.c, trace.c, tube.c, util.c, version.c, whole.c:
+	  Changed the include "rsync.h" to include "librsync.h".
+
+2003-06-12 15:44  wayned
+
+	* librsync.h, rsync.h: Renamed rsync.h to librsync.h.
+
+2003-06-12 15:41  wayned
+
+	* configure.ac, configure.in: Rename configure.in to configure.ac
+	  so that we're using the new naming idiom, and certain
+	  auto-version-sensing scripts (such as automake) work better.
+
+2003-06-12 05:18  wayned
+
+	* THANKS: Tweak a mispelled name.
+
+2003-03-27 02:07  abo
+
+	* Makefile.am:
+	  * Makefile.am:   Added rule for building popt if required.
+
+2003-03-27 01:41  abo
+
+	* testsuite/: delta.test, driver.sh:
+	  * testsuite/delta.test, testsuite/driver.sh:	 unrolled changes
+	  that make these work on windows because they have   permission
+	  problems on unix.
+
+2003-03-27 01:27  abo
+
+	* PCbuild/config.h:
+	  * PCbuild/config.h: updated to latest generated by cygwin.
+
+2003-03-27 00:45  abo
+
+	* Makefile.am, NEWS, README, README.CVS, THANKS, TODO, acconfig.h,
+	  acinclude.m4, configure.in, librsync.spec, testsuite/delta.test,
+	  testsuite/driver.sh:
+	  * acconfig.h: removed, redundant.  * acinclude.m4: removed,
+	  redundant.  * configure.in:	Ran autoupdate.    Cleaned up
+	  boilerplate, adding AC_COPYRIGHT, removing comment quote.
+	  Changed AC_REVISION to use $Revision$ instead of $Id$    Moved
+	  AC_DISABLE_SHARED above program checks.    Tidied up program
+	  checks including checks from configure.scan.	  Changed AC_DEFINE
+	  of _GNU_SOURCE to AC_GNU_SOURCE check.    Reformated
+	  AC_COMPILE_IFELSE generated by autoupdate.	Added descriptions
+	  to AC_DEFINES from librsyncupdate.patch.    Made popt test
+	  actually use local popt if missing.	 Removed spurious
+	  HAVE_SOCK_SIN_LEN and intmax_t tests.    Simplified trace and
+	  cmalloc enable tests (trace is off by default).    Removed
+	  suspect old AC_SUBST settings.    Moved AC_GNU_SOURCE and
+	  AC_ISC_POSIX around CC program check.    Added mcheck.h to
+	  AC_CHECK_HEADERS for popt    Added AC_CHECK_FUNCS([gettext
+	  dgettext]) for popt	 Re-arranged to put FUNC tests together
+	  Changed to indent 2 spaces.	 Commented out
+	  AC_FUNC_MALLOC|MEMCMP|REALLOC because of missing replacements.  *
+	  Makefile.am:	 Changed librsync_la_SOURCES to build prototab.[ch]
+	  first.    Removed quote comment (was raising warnings in
+	  automake).	simplified MAINTAINERCLEANFILES for automake1.7,
+	  removing AUX_DIST.	added depcomp to MAINTAINERCLEANFILES for
+	  automake1.7.	* README: added instructions for compiling on
+	  Windows.  * README.CVS: changed apt-get instructions to ensure
+	  automake1.7 is installed.  * NEWS: added summary of updates for
+	  0.9.6.  * THANKS: updated with contributors for 0.9.6 * TODO:
+	  added stuff about autoconf cleanups.	* librsync.spec: updated
+	  for 0.9.6 and sourceforge project.  * testsuite/delta.test:
+	  Changed to use tempfile instead of /dev/null for win32 testing.
+	  * testsuite/driver.sh:   Added option and default of using
+	  relative paths for tests for win32 testing.
+
+2003-03-21 02:10  abo
+
+	* Makefile.am, mutate.pl, testsuite/COPYING, testsuite/Makefile.am,
+	  testsuite/mksum.test:
+	  * mutate.pl: Removed, duplicated in testsuite/ *
+	  testsuite/COPYING: Removed, duplicated in / * Makefile.am:
+	  EXTRA_DIST, added autogen.sh, configure.msc, rdiff.magic,
+	  README.RPM, debian/, PCbuild/.  *testsuite/Makefile.am: removed
+	  directories from test_data.  *testsuite/mksum.test: changed to
+	  use ../COPYING for test data.
+
+2003-03-20 20:19  abo
+
+	* Makefile.am, README, autogen.sh, configure.in, dot,
+	  doc/Makefile.am, popt/Makefile.am, testsuite/Makefile.am:
+
+	  Added MAINTAINERCLEANFILES settings for automake.
+
+	  * autogen.sh: Added call to libtoolize. Fixed cache deletion to
+	  test for a directory instead of a file.
+
+	  * configure.in: Removed redundant AC_CANNONICAL_HOST. Removed CVS
+	  as a dependancy for ChangeLog for distcheck. Changed AM_ libtool
+	  options to AC_.  Fixed librsync_libversion handling.
+
+	  * Makefile.am: Changed AUX_DIST to include libtool AUX files.
+	  Fixed librsync_libversion handling.
+
+	  * testsuite/Makefile.am: Added testsuite EXTRA_DIST to ensure
+	  tests get distributed.
+
+	  * README: Updated for sourceforge project details.
+
+	  * dot: removed.
+
+2003-03-20 12:00  abo
+
+	* Makefile.am, README.CVS, autogen.sh:
+	  Updated README.CVS to refer to project hosting on sourceforge.
+	  Fixed automake support for generating ChangeLog from CVS.
+
+2003-03-19 16:21  abo
+
+	* fileutil.c, fileutil.h, rdiff.c:
+	  committed patch "again rdiff cosmetic patch", adding
+	  rs_file_close to fileutil.[ch]. Also adds popt cleanup to rdiff.
+
+2003-03-06 03:34  abo
+
+	* mdfour.c:
+	  Applied mdfour optimisations and cleanups patch from SF.
+
+2003-03-06 03:24  abo
+
+	* .cvsignore, ChangeLog, Makefile.am, autogen.sh, configure.in,
+	  libversions.txt, prototab.h, testsuite/.cvsignore,
+	  testsuite/ChangeLog, testsuite/Makefile.am:
+
+	  Added AC_PREREQ(2.53) to force autoconf version checking.
+
+	  Updated autogen.sh to use 'automake --foreign' because ChangeLog
+	  is now generated, and to clean autom4te.cache instead of
+	  config.cache
+
+	  Added popt and testsuite to Makefile.am SUBDIRS and configure.in
+	  AC_OUTPUT.
+
+	  Changed and documented project version to 0.9.6 and library
+	  version to 1:2:0.
+
+	  Fixed Makefile.am $(LIBOBJS) to @LIBOBJS@.
+
+	  Removed LIBOBJS from testsuite/Makefile.am because it doesn't
+	  expand properly for functions found in $(top_srcdir). This needs
+	  to be fixed by building a "replace" library of replacement
+	  functions to link with.
+
+	  Added rule for building ChangeLog using cvs2cl.
+
+	  Updated .cvsignore files to ignore generated files with autoconf
+	  2.5x.
+
+	  Removed generated ChangeLog and prototab.h files.
+
+2003-02-25 01:43  abo
+
+	* trace.h:
+	  Added Mac OS-X support patch which affects one line in trace.h.
+
+2002-08-22 03:28  wayned
+
+	* sumset.c: Allow the user to free a sumset even if
+	  rs_build_hash_table() wasn't called on it.
+
+2002-07-14 04:58  wayned
+
+	* configure.in: Added a check for the popt library.
+
+2002-07-14 04:51  wayned
+
+	* configure.in: - Got rid of the included-popt stuff.  - Don't
+	  build popt/Makefile and testsuite/Makefile.
+
+2002-07-14 04:49  wayned
+
+	* Makefile.am: - Got rid of the testsuite subdir because it is
+	  currently broken in the   distribution (using "make dist").  -
+	  Got rid of the popt subdir.  - Added the missing mdfour.h file to
+	  the librsync_la_SOURCES list.
+
+2002-06-30 05:51  wayned
+
+	* mdfour.c: Robert Weber submitted changes to make the checksum
+	  work on files >512Meg and also to speed up little-endian systems.
+	  I tweaked them a tad and this is the result.
+
+2002-06-30 05:47  wayned
+
+	* types.h: Define uint64_t, if possible.
+
+2002-06-30 05:44  wayned
+
+	* mdfour.h: Changed typedef into simple structure definition.
+
+2002-06-30 05:44  wayned
+
+	* delta.c: Got rid of the include of "types.h" since it is now
+	  included by an earlier include.
+
+2002-06-30 05:33  wayned
+
+	* rsync.h: Got rid of the contents of the rs_mdfour_t typedef.
+
+2002-06-30 05:32  wayned
+
+	* job.h: Include the new mdfour.h header.
+
+2002-06-30 05:31  wayned
+
+	* configure.in: Added check for big-endian systems.
+
+2002-06-30 05:31  wayned
+
+	* mdfour.h: Moved the struct here to hide its contents from the
+	  user.
+
+2002-06-30 05:02  wayned
+
+	* configure.msc, PCbuild/PCbuild.dsw, PCbuild/config.h,
+	  PCbuild/rdiff.dsp: A file to help build librsync on a MS-OS PC.
+
+2002-06-30 04:59  wayned
+
+	* fileutil.c, hex.c, stats.c, trace.c: Conditionally include
+	  several header files.
+
+2002-06-30 04:56  wayned
+
+	* configure.in: Added header-file checks for fcntl.h, inttypes.h,
+	  and sys/file.h.
+
+2002-06-30 04:47  wayned
+
+	* rsync.h: Check for LONG_LONG for WIN32.
+
+2002-06-30 04:41  wayned
+
+	* buf.c, copyq.c, rsync.h: Use rs_long_t instead of off_t.
+
+2002-06-30 04:25  wayned
+
+	* popt/system.h: A couple changes to make PC builds work.
+
+2002-06-30 04:14  wayned
+
+	* whole.c: Use HAVE_UNISTD_H define.
+
+2002-06-28 18:35  wayned
+
+	* buf.c: - Include <sys/types.h> for FreeBSD.  - Free the "fb->buf"
+	  variable in rs_filebuf_free().
+
+2002-06-20 08:45  wayned
+
+	* patch.c: Added include of <string.h> to remove compiler warning
+	  about memcpy().
+
+2002-06-20 08:44  wayned
+
+	* .cvsignore, doc/.cvsignore, popt/.cvsignore,
+	  testsuite/.cvsignore: Added missing generated files.
+
+2002-06-20 04:57  wayned
+
+	* delta.c: Fixed a bug in delta-generation that caused them to be
+	  too large.  (Patch provided by Shirish H. Phatak.)
+
+2002-06-20 04:57  wayned
+
+	* job.c: Fix a memory leak. (Patch by Shirish H. Phatak.)
+
+2002-06-20 04:50  wayned
+
+	* rdiff.c: Explicitly close our open files and free the sumset so
+	  it's clearer what cleanup needs to be done in a long-running
+	  application.
+
+2002-06-20 04:48  wayned
+
+	* emit.c: Removed an unused variable.
+
+2002-01-26 08:47  bje
+
+	* ChangeLog, Makefile.am, autogen.sh, configure.in, driver.sh: *
+	  configury clean-up.
+
+		  * Makefile.am (SUBDIRS): Add doc, testsuite.
+		  (librsync_la_SOURCES): Condense.
+		  (man_MANS): Remove--handled by doc/Makefile.am now.
+		  (TESTS_ENVIRONMENT): Remove--handled by
+	  testsuite/Makefile.am.
+		  (test_scripts): Likewise.
+		  (try_scripts): Likewise.
+		  (TESTS): Likewise.
+		  (test_data): Likewise.
+		  (noinst_SCRIPTS): Update.
+		  (EXTRA_DIST): Likewise.
+		  (bin_PROGRAMS): Rename from this ..
+		  (noinst_PROGRAMS): .. to this.
+		  (check_PROGRAMS): Remove.
+		  (isprefix_driver_SOURCES): Likewise.
+		  (isprefix_driver_LDADD): Likewise.
+		  (check_programs): Likewise.
+		  * autogen.sh: Don't specify Makefiles to automake.
+		  * configure.in (AC_INIT_AUTOMAKE): Simplify invocation.
+		  (AC_OUTPUT): Emit doc/Makefile, doc/Doxyfile,
+	  tesdtsuite/Makefile.
+
+2002-01-26 08:46  bje
+
+	* .cvsignore: * prune right back--we can always update later.
+
+2002-01-26 08:33  bje
+
+	* ChangeLog, README.autoconf, changes.test, delta.test,
+	  isprefix.test, mdfour.test, mksum.test, mutate.test,
+	  signature.test, sources.test, triple.test:	     *
+	  README.autoconf: Remove.
+		  * changes.test: Move to testsuite subdirectory.
+		  * delta.test: Ditto.
+		  * isprefix.test: Ditto.
+		  * mdfour.test: Ditto.
+		  * mksum.test: Ditto.
+		  * mutate.test: Ditto.
+		  * signature.test: Ditto.
+		  * sources.test: Ditto.
+		  * triple.test: Ditto.
+
+2002-01-26 08:25  bje
+
+	* ChangeLog, Doxyfile, codeheader.c, codeheader.man, codeheader.sh,
+	  doxygen.css, extra.dox, footer.html, gloss.dox, header.html,
+	  librsync.3, main.dox, rdiff.1, rdiff.dox, rproxy-small-logo.png,
+	  doc/Doxyfile.in, doc/Makefile.am, doc/codeheader.c,
+	  doc/codeheader.man, doc/codeheader.sh, doc/doxygen.css,
+	  doc/extra.dox, doc/footer.html, doc/gloss.dox, doc/header.html,
+	  doc/librsync.3, doc/main.dox, doc/rdiff.1, doc/rdiff.dox,
+	  doc/rproxy-small-logo.png:	  * doc/Makefile.am: New file.
+		  * Doxyfile: Move from here ..
+		  * doc/Doxyfile.in: .. to here (with added substitutions).
+		  * codeheader.c: Move from here ..
+		  * doc/codeheader.c: .. to here.
+		  * codeheader.man: Move from here ..
+		  * doc/codeheader.man: .. to here.
+		  * codeheader.sh: Move from here ..
+		  * doc/codeheader.sh: .. to here.
+		  * doyxgen.css: Move from here ..
+		  * doc/doxygen.css: .. to here.
+		  * extra.dox: Move from here ..
+		  * doc/extra.dox: .. to here.
+		  * header.html: Move from here ..
+		  * doc/header.html: .. to here.
+		  * librsync.3: Move from here ..
+		  * doc/librsync.3: .. to here.
+		  * main.dox: Move from here ..
+		  * doc/main.dox: .. to here.
+		  * rdiff.1: Move from here ..
+		  * doc/rdiff.1: .. to here.
+		  * rdiff.dox: Move from here ..
+		  * doc/rdiff.dox: .. to here.
+		  * rproxy-small-logo.png: Move from here ..
+		  * doc/rproxy-small-logo.png: .. to here.
+
+2002-01-26 08:15  bje
+
+	* doc/.cvsignore: * new file.
+
+2002-01-26 08:13  bje
+
+	* testsuite/: COPYING, ChangeLog, mksum.input/COPYING.sig:	*
+	  mksum.input/COPYING.sig: Move here from top-level directory.
+		  * COPYING: Likewise, copy from top-level.
+
+2002-01-26 08:10  bje
+
+	* testsuite/: dot, driver.sh: * new files; missed from earlier
+	  check-in.
+
+2002-01-26 08:09  bje
+
+	* testsuite/.cvsignore: * new file.
+
+2002-01-26 08:08  bje
+
+	* testsuite/: mutate.pl, ChangeLog, Makefile.am, changes.test,
+	  delta.test, isprefix.driver.c, isprefix.test, mdfour.test,
+	  mksum.test, mutate.test, signature.test, sources.test,
+	  triple.test:	 * Makefile.am: New file.
+		  * changes.test: Move here from top-level directory.
+		  * delta.test: Ditto.
+		  * isprefix.test: Ditto.
+		  * mdfour.test: Ditto.
+		  * mksum.test: Ditto.
+		  * mutate.test: Ditto.
+		  * signature.test: Ditto.
+		  * sources.test: Ditto.
+		  * triple.test: Ditto.
+		  * dot: Ditto.
+		  * driver.sh: Ditto.
+		  * isprefix.driver.c: Ditto.
+		  * mutate.pl: Ditto.
+
+2002-01-25 23:13  bje
+
+	* testsuite/: ChangeLog, changes.input/01.in, changes.input/02.in,
+	  changes.input/03.in, changes.input/04.in, delta.input/01.delta,
+	  delta.input/01.expect, delta.input/02.delta,
+	  delta.input/02.expect, delta.input/03.delta,
+	  delta.input/03.expect, mdfour.input/01.data,
+	  mdfour.input/01.expect, signature.input/01.in,
+	  signature.input/01.sig, triple.input/copying.in,
+	  triple.input/half.in, triple.input/hello.in,
+	  triple.input/zero.in:    * changes.input: Replica test directory.
+		  * delta.input: Likewise.
+		  * mdfour.input: Likewise.
+		  * signature.input: Likewise.
+		  * triple.input: Likewise.
+
+2002-01-25 20:16  bje
+
+	* ChangeLog, autogen.sh:	* autogen.sh: Don't implicitly run
+	  configure.
+
+2001-09-14 11:41  mbp
+
+	* NEWS, configure.in: Update NEWS
+
+	  Call this 0.9.5.
+
+	  Pacify autoconf warnings.
+
+2001-09-14 11:31  mbp
+
+	* configure.ac, configure.in: rename configure.ac back to
+	  configure.in, since the Debian breakage about autoconf2.13->2.50
+	  migration seems to be fixed
+
+2001-09-14 11:29  mbp
+
+	* buf.c, job.h: Patch from Shirish Hemant Phatak to
+
+	   - properly handle return from fread when file size is a multiple
+	  of
+	     input block size
+
+	   - adjusts the tube length in job.h to better confirm with
+	  largefiles
+
+2001-08-10 15:13  mbp
+
+	* configure.ac, configure.in: Rename to configure.ac to make
+	  autoconf2.50 happier
+
+2001-08-08 17:51  mbp
+
+	* configure.in: This isn't 0.9.4 anymore.
+
+2001-08-08 17:11  mbp
+
+	* librsync.3, rdiff.1: Fix documentation credits.
+
+2001-08-08 17:07  mbp
+
+	* librsync.spec: Try to make sure we catch manpages in the package.
+
+2001-08-08 16:26  mbp
+
+	* librsync.spec: Try again.
+
+2001-08-08 16:23  mbp
+
+	* NEWS, configure.in, libversions.txt, librsync.spec: Get ready for
+	  0.9.4 release.
+
+2001-08-08 16:16  mbp
+
+	* librsync.spec: Munge spec file to actually build properly on RH
+	  7.0.
+
+2001-08-08 15:44  mbp
+
+	* librsync.spec: Update spec for 0.9.4pre and take out the RLL
+	  patch which is now merged.
+
+2001-08-08 15:43  mbp
+
+	* Makefile.am: Include RPM spec file in tarball
+
+2001-08-08 15:37  mbp
+
+	* README: Add note about broken gcc on RH7.0.
+
+2001-08-08 15:36  mbp
+
+	* configure.in: It looks like libtool doesn't like AC_PROG_RANLIB
+	  to be explicitly tested.
+
+2001-08-08 15:06  mbp
+
+	* configure.in: autoconf2.50 is more fussy about quoting in
+	  configure.in, so I cleaned that up.
+
+2001-08-08 15:05  mbp
+
+	* Makefile.am: includes.h was in the list of files to be
+	  distributed, but we don't use it anymore.
+
+2001-08-08 14:58  mbp
+
+	* NEWS, delta.c, emit.c: RLL encoding fix from Shirish Hemant
+	  Phatak <shirish@nustorage.com>: Fixes a weak checksum bug and
+	  improves efficiency on sequences of exact matches
+
+2001-08-08 14:54  mbp
+
+	* acinclude.m4: Fix quoting for autoconf2.50.
+
+2001-08-08 14:54  mbp
+
+	* README.autoconf: Explain autoconf madness.
+
+2001-08-08 11:20  mbp
+
+	* README.RPM, librsync.spec: Add spec file from Peter Braam.
+	  (Fixed description, otherwise the same.  Don't know if it works
+	  yet.)
+
+2001-04-10 01:02  mbp
+
+	* NEWS, configure.in, job.c, job.h, rsync.h: Fixes for rsync.h from
+	  Thorsten Schuett <thorsten.schuett@zib.de>
+
+2001-04-10 00:59  mbp
+
+	* mdfour.c: Const-correctness
+
+2001-03-20 15:26  mbp
+
+	* README: Test direction of CVS commit messages
+
+2001-03-19 19:13  mbp
+
+	* rdiff.c: Doc.
+
+2001-03-19 19:10  mbp
+
+	* rdiff.c: Doc.
+
+2001-03-19 16:52  mbp
+
+	* mdfour.c: Help the compiler a little bit in copy64.
+
+	  Alignment fix by tridge for rs_mdfour_choose_packer.
+
+2001-03-19 15:57  mbp
+
+	* msg.c: Doc.
+
+2001-03-19 15:47  mbp
+
+	* Makefile.am: Include rsync.h in librsync sources.
+
+2001-03-19 01:46  mbp
+
+	* debian/: README.debian, changelog, control, copyright,
+	  crontab.ex, dirs, diversions.ex, inetd.conf.ex, info.ex,
+	  init.d.ex, librsync1.files, manpage.1.ex, menu.ex, rules,
+	  watch.ex: First-cut Debian support from deb-make
+
+2001-03-19 01:42  mbp
+
+	* NEWS, driver.sh, hex.c, trace.h: More Tru64 portability fixes.
+
+2001-03-19 01:29  mbp
+
+	* NEWS, trace.c, trace.h: Make trace work better on non-gcc
+	  compilers.
+
+2001-03-19 01:28  mbp
+
+	* rsync.h: Some compilers don't like trailing commas in enums.
+
+2001-03-19 01:21  mbp
+
+	* netint.c: Type correctness on 64-bit platforms.
+
+2001-03-19 01:20  mbp
+
+	* job.c: Shut up compiler warning.
+
+2001-03-19 01:20  mbp
+
+	* delta.c: Doc.
+
+2001-03-19 01:19  mbp
+
+	* configure.in: Tru64 cc can't cope with space between -I and the
+	  path.
+
+2001-03-19 01:19  mbp
+
+	* Makefile.am: Remove duplicate source file from list.
+
+	  Upload NEWS to librsync-NEWS on web site.
+
+2001-03-19 00:41  mbp
+
+	* rdiff.c: Build properly without zlib.h
+
+2001-03-19 00:23  mbp
+
+	* NEWS, configure.in: Get ready for 0.9.3 release.
+
+2001-03-19 00:20  mbp
+
+	* driver.sh: Only run 150 of each test.
+
+2001-03-19 00:17  mbp
+
+	* mutate.test: Fix silly mistake in test case loop.
+
+2001-03-18 22:24  mbp
+
+	* delta.test, mksum.test, mutate.test, triple.test: Use test
+	  framework more consistently
+
+2001-03-18 22:16  mbp
+
+	* mksum.test, mutate.test, signature.test, triple.test, delta.test,
+	  driver.sh, mdfour.test: Use test framework more consistently
+
+2001-03-18 22:13  mbp
+
+	* tube.test: Obsolete.
+
+2001-03-18 22:10  mbp
+
+	* Makefile.am: Include types.h in distribution.
+
+2001-03-18 22:02  mbp
+
+	* emit.c, job.c: Fix float output formats.
+
+2001-03-18 22:01  mbp
+
+	* main.dox: Explain importance of large buffers.
+
+2001-03-18 22:01  mbp
+
+	* mksum.c: Do stats on signatures.
+
+	  Add rs_trace_enabled() so that we can avoid spending too much
+	  time generating trace output if it's not going to be used.
+
+2001-03-18 21:59  mbp
+
+	* mdfour.c: Make MD4 40% faster! :-)
+
+	  Eliminate redundant copying of information.  If we're on a
+	  little-endian machine, do the calculations directly, and don't do
+	  byte swapping.  Use an exact uint32 type.  Don't copy into the
+	  tail of the MD4 accumulator unless there's already something
+	  there.
+
+2001-03-18 21:58  mbp
+
+	* job.h: Do rolling checksums in deltas.
+
+	  Do stats on signatures.
+
+2001-03-18 21:57  mbp
+
+	* driver.sh: Fix output format for countdown()
+
+2001-03-18 21:56  mbp
+
+	* checksum.c, checksum.h, delta.c: Use rolling checksums when
+	  generating deltas.  (This seems to work, but in very rare cases
+	  --paranoid finds a mismatch -- I'll check.)
+
+	  Fix float output formats.
+
+2001-03-18 21:55  mbp
+
+	* NEWS: Doc.
+
+2001-03-18 21:54  mbp
+
+	* mutate.pl: Bias changes towards smaller sizes -- this is more
+	  realistic.
+
+	  Add a little user-friendliness.
+
+2001-03-18 21:53  mbp
+
+	* rdiff.c: Add --paranoid option to double-check rolling sums.
+
+	  Explain that --gzip and --bzip2 don't work yet.
+
+	  Do stats on signature and loadsig operations.
+
+2001-03-18 21:52  mbp
+
+	* readsums.c, patch.c, netint.c: Fix float output formats.
+
+	  Add rs_trace_enabled() so that we can avoid spending too much
+	  time generating trace output if it's not going to be used.
+
+2001-03-18 21:51  mbp
+
+	* scoop.c: Fix float output formats.
+
+2001-03-18 21:51  mbp
+
+	* stats.c: Do signatures on signature and loadsig operations.
+
+	  Fix float output formats.
+
+2001-03-18 21:51  mbp
+
+	* tube.c: size_t doesn't need to be printed as a double.
+
+2001-03-18 21:50  mbp
+
+	* trace.c, trace.h: Check that %ld in trace statements is going to
+	  work.
+
+	  Add rs_trace_enabled() so that we can avoid spending too much
+	  time generating trace output if it's not going to be used.
+
+2001-03-18 21:49  mbp
+
+	* rollsum.c, rollsum.h, sumset.h: rollsum_t is no longer used.
+
+2001-03-18 21:48  mbp
+
+	* whole.c, rsync.h: Do signatures on signature and loadsig
+	  operations.
+
+2001-03-18 21:48  mbp
+
+	* types.h: Make sure we find a real uint32 type, so that MD4 code
+	  can assume it's correct and be faster.
+
+2001-03-18 21:47  mbp
+
+	* configure.in: Drop explicit off64_t stuff from Samba, and instead
+	  use the AC_SYS_LARGEFILE macro.
+
+	  Check more integer sizes.
+
+2001-03-18 21:47  mbp
+
+	* acinclude.m4: Drop explicit off64_t stuff from Samba, and instead
+	  use the AC_SYS_LARGEFILE macro.
+
+2001-03-18 21:46  mbp
+
+	* Makefile.am, signature.test, sources.test: More exciting test
+	  cases.
+
+2001-03-18 21:43  mbp
+
+	* .cvsignore: Ignore profiler output.
+
+2001-03-18 14:12  mbp
+
+	* TODO: Doc.
+
+2001-03-18 14:11  mbp
+
+	* Makefile.am, mutate.pl, mutate.test: Add a test case based on
+	  mutate.
+
+	  Allow multiple mutations in a single invocation.
+
+	  More equally balance the choice of mutation operations.
+
+2001-03-18 13:48  mbp
+
+	* .cvsignore, Makefile.am, mutate.c, mutate.pl: It's much easier to
+	  write mutate in Perl rather than C.
+
+2001-03-18 13:19  mbp
+
+	* delta.c, emit.c, job.c, netint.c, patch.c, scoop.c, stats.c,
+	  tube.c: Print large numbers as %f (double), so that we work
+	  whatever the relationship between long, size_t and off_t.
+	  (Suggestion from tridge)
+
+2001-03-18 13:05  mbp
+
+	* job.c, whole.c, buf.c, buf.h: Add rs_job_drive, a generic
+	  mechanism for turning the library into blocking mode.
+	  rs_whole_run now builds on top of this.  The filebuf interface
+	  has changed a little to accomodate it.
+
+2001-03-18 13:04  mbp
+
+	* mutate.c: Add `mutate' test utility (works, but incomplete)
+
+2001-03-18 13:01  mbp
+
+	* acconfig.h: Look for intmax_t in stdint.h
+
+2001-03-18 13:01  mbp
+
+	* sources.test: Get rid of GNUisms in scripts.
+
+2001-03-18 13:00  mbp
+
+	* rsync.h: Add rs_job_drive, a generic mechanism for turning the
+	  library into blocking mode.  rs_whole_run now builds on top of
+	  this.  The filebuf interface has changed a little to accomodate
+	  it.
+
+2001-03-18 12:59  mbp
+
+	* rdiff.c: Accept gzip and bzip2 options.  Doesn't actually do
+	  anything yet.
+
+2001-03-18 12:49  mbp
+
+	* patch.c: If the magic number is wrong, show the value we did
+	  receive.
+
+2001-03-18 12:49  mbp
+
+	* libversions.txt: Explain meaning of columns.
+
+	  Add release 0.9.3.
+
+2001-03-18 12:47  mbp
+
+	* configure.in: Canonical home page is rproxy.samba.org
+
+	  Look for intmax_t in stdint.h
+
+2001-03-18 12:46  mbp
+
+	* autogen.sh, dot, driver.sh: Get rid of GNUisms in scripts.
+
+2001-03-18 12:41  mbp
+
+	* NEWS: Suggestions to build on Solaris 2.6 from Alberto Accomazzi
+	  <aaccomazzi@cfa.harvard.edu>
+
+	  Add rs_job_drive, a generic mechanism for turning the library
+	  into blocking mode.  rs_whole_run now builds on top of this.	The
+	  filebuf interface has changed a little to accomodate it.
+
+2001-03-18 12:40  mbp
+
+	* .cvsignore, Makefile.am: Suggestions to build on Solaris 2.6 from
+	  Alberto Accomazzi <aaccomazzi@cfa.harvard.edu>
+
+	  Add `mutate' test utility (works, but incomplete)
+
+2001-03-17 22:08  mbp
+
+	* rdiff.c: Gentler preprocessor syntax to support different
+	  compilers.
+
+2001-03-17 22:08  mbp
+
+	* TODO: Note about output conversions.
+
+2001-03-17 22:08  mbp
+
+	* Makefile.am: Add upload-news target.
+
+2001-03-15 11:39  mbp
+
+	* NEWS, rsync.h: Patch to build on FreeBSD by Jos Backus
+	  <josb@cncdsl.com>, fixing type-correctness.
+
+2001-03-15 11:34  mbp
+
+	* patch.c: Type-correctness.
+
+2001-03-15 11:34  mbp
+
+	* configure.in: Moving towards 0.9.3.
+
+2001-03-13 01:48  mbp
+
+	* tube.c: Be more careful about criteria for detecting truncated
+	  literal blocks.
+
+2001-03-13 01:42  mbp
+
+	* tube.c: Return error if file is truncated during COPY patch
+	  operation
+
+2001-03-13 01:04  mbp
+
+	* NEWS: Call this 0.9.2.
+
+2001-03-13 00:52  mbp
+
+	* Makefile.am, configure.in: Call this 0.9.2.
+
+2001-03-13 00:15  mbp
+
+	* sources.test: Also compare source to itself as the null case.
+
+2001-03-13 00:15  mbp
+
+	* driver.sh: Driver now takes a -s option to make it show
+	  statistics.
+
+2001-03-13 00:13  mbp
+
+	* delta.c: Update the delta_scan routine to be able to do short end
+	  blocks.
+
+2001-03-13 00:02  mbp
+
+	* delta.c: Doc.
+
+2001-03-13 00:02  mbp
+
+	* stats.c: Fix printf formats.
+
+2001-03-13 00:00  mbp
+
+	* changes.test, driver.sh, sources.test: Add triple_test function
+	  to test driver.
+
+	  Try a block size of 4096 first as it's a more common case.
+
+	  Add a test case that uses backups of source files.
+
+2001-03-12 23:43  mbp
+
+	* .cvsignore: Ignore man products.
+
+2001-03-12 23:41  mbp
+
+	* search.c: Clean up.
+
+2001-03-12 23:40  mbp
+
+	* Makefile.am, changes.test: Add another test case that compares
+	  similar files.
+
+2001-03-12 23:38  mbp
+
+	* patch.c: Keep track of statistics while reading patches.
+
+2001-03-12 23:38  mbp
+
+	* delta.c: Make sure we progress by at least a single block when
+	  looking for a match.
+
+	  After finding a match, remember its location and send it out on
+	  the next iteration.
+
+2001-03-12 18:29  mbp
+
+	* stats.c: Fix printf format.
+
+2001-03-12 18:27  mbp
+
+	* scoop.c, tube.c: Better trace.
+
+2001-03-12 18:27  mbp
+
+	* job.h, patch.c: Correctly execute COPY commands when patching.
+
+2001-03-12 18:25  mbp
+
+	* rsync.h, emit.c, stats.c: Stats should include number of COPY
+	  cmdbytes.
+
+2001-03-12 18:22  mbp
+
+	* rsync.h: Fix rs_file_copy_cb, which needs to know the position at
+	  which to copy.  Show fd# if copy fails.
+
+	  Doc.
+
+2001-03-12 18:21  mbp
+
+	* buf.c: Fix rs_file_copy_cb, which needs to know the position at
+	  which to copy.  Show fd# if copy fails.
+
+2001-03-12 14:41  mbp
+
+	* patch.c: Add code to parse COPY commands.  Doesn't execute them
+	  yet.
+
+	  Automatically stick immediate operands into job->param1.
+
+2001-03-12 14:32  mbp
+
+	* delta.c: W00h00!  Search for matching blocks and emit COPY
+	  commands when found.	Don't calculate the strong checksum unless
+	  we think we've found a match.
+
+2001-03-12 14:31  mbp
+
+	* scoop.c: Doc.
+
+2001-03-12 14:28  mbp
+
+	* emit.c, emit.h: Add rs_emit_copy_cmd, with hardcoded cmdbyte.
+
+2001-03-12 13:31  mbp
+
+	* delta.c: Calculate checksums of full-size blocks in preparation
+	  for searching.  Still just emit literals.
+
+	  Sanity-check signature settings at job creation.
+
+	  If there's not enough input data to search for a block, then put
+	  what we have into the scoop so that we can keep it for later.
+
+2001-03-12 13:28  mbp
+
+	* scoop.c, stream.h: Expose rs_scoop_input.
+
+2001-03-12 13:23  mbp
+
+	* util.h: Drop unused macros.
+
+2001-03-12 13:16  mbp
+
+	* job.c: More verbose internal error message.
+
+2001-03-12 12:57  mbp
+
+	* rsync.h: Fix Doxygen references.
+
+2001-03-12 12:43  mbp
+
+	* delta.c: When generating a delta, get as much readahead as
+	  possible so that we can generate the best deltas.  Move code to
+	  actually scan out into a separate function.  Still just always
+	  emitting deltas.
+
+2001-03-12 12:42  mbp
+
+	* job.h, mksum.c, netint.c, patch.c, stream.c, stream.h, tube.c:
+	  Rename rs_blow_* to rs_tube_*.
+
+	  Rename rs_blow_literal to rs_tube_write, because it otherwise
+	  tends to get confused with LITERAL commands.
+
+2001-03-12 12:30  mbp
+
+	* main.dox: More documentation of buffers structure.
+
+2001-03-12 12:09  mbp
+
+	* job.c: Try to check that the job actually made progress if it
+	  said it did, so as to better detect internal errors.
+
+2001-03-12 12:08  mbp
+
+	* emit.c: Include statistics about space used by command headers,
+	  and the total bytes read and written.
+
+2001-03-12 12:02  mbp
+
+	* rsync.h, stats.c: Include statistics about space used by command
+	  headers, and the total bytes read and written.
+
+2001-03-12 11:33  mbp
+
+	* tube.c: Factor out code to copy from scoop.
+
+2001-03-12 11:04  mbp
+
+	* tube.c: Better trace.
+
+	  Doc.
+
+	  When copying data through to the tube, make sure we use up data
+	  in the scoop first!
+
+2001-03-12 11:04  mbp
+
+	* trace.c, trace.h: Fix oops about RS_LOG_NONAME.
+
+2001-03-12 11:03  mbp
+
+	* stream.c, stream.h: Get ready for readahead searching for
+	  matching blocks.
+
+	  Don't both copying if there are zero bytes left.
+
+2001-03-12 11:01  mbp
+
+	* scoop.c: Get ready for readahead searching for matching blocks.
+
+2001-03-12 11:01  mbp
+
+	* rdiff.c: Get ready for built-in gzip/bzip2 support.
+
+	  Make sure we suggest --help when somebody makes a command-line
+	  mistake.
+
+2001-03-12 11:00  mbp
+
+	* msg.c: Improved error messages.
+
+2001-03-12 10:59  mbp
+
+	* delta.c, job.h: When generating a delta, if there is a signature
+	  loaded then use a different statefn that tries to get enough
+	  readahead to look for a match.  At the moment it just outputs
+	  LITERALs, but it's closer.
+
+	  Copy signature parameters into the job, so block_len is available
+	  for deltas.
+
+2001-03-12 10:57  mbp
+
+	* configure.in: Look for libz and libbz2 so that we can later try
+	  using them in rdiff.
+
+2001-03-12 01:41  mbp
+
+	* includes.h: no longer required
+
+2001-03-12 01:41  mbp
+
+	* stats.c, trace.c, trace.h: Optionally hide function name in trace
+	  output.  Do this when displaying statistics.
+
+2001-03-12 01:41  mbp
+
+	* sumset.h: Doc.
+
+2001-03-12 01:18  mbp
+
+	* configure.in: Call this 0.9.2pre.
+
+2001-03-12 01:17  mbp
+
+	* Makefile.am, autogen.sh: Cater to people who prefer the name
+	  'make test'.
+
+2001-03-12 01:16  mbp
+
+	* buf.c: Doc.
+
+2001-03-12 01:16  mbp
+
+	* librsync.3: Fix man page markup.
+
+2001-03-12 01:14  mbp
+
+	* Makefile.am: Make manpages look better.
+
+2001-03-12 01:03  mbp
+
+	* Makefile.am: Build man pages and converted forms.  Upload
+	  converted man pages to websites.
+
+2001-03-12 00:52  mbp
+
+	* trace.c, rdiff.c: Doc.
+
+2001-03-11 16:32  mbp
+
+	* popt/config.log: Does not belong in CVS.
+
+2001-03-11 15:48  mbp
+
+	* Makefile.am, NEWS, configure.in: Get ready for 0.9.1.
+
+2001-03-11 15:40  mbp
+
+	* main.dox, rsync.h: Add more buffers documentation.
+
+2001-03-11 14:45  mbp
+
+	* main.dox, mksum.c, patch.c, readsums.c, rsync.h, scoop.c,
+	  stream.c, stream.h, tube.c, whole.c, NEWS, TODO, buf.c, buf.h,
+	  delta.c, job.c, job.h: It's no longer necessary to call
+	  rs_buffers_init on a stream before starting to use it: all the
+	  internal data is kept in the job, not in the stream.
+
+	  Rename rs_stream_t to rs_buffers_t, a more obvious name.  Pass
+	  the buffers to every rs_job_iter() call, rather than setting it
+	  at startup.  Similarly for all the _begin() functions.
+
+	  rs_job_new also takes the initial state function.
+
+	  Return RS_PARAM_ERROR when library is misused.
+
+2001-03-11 14:40  mbp
+
+	* Makefile.am: Don't include backups in upload of doxy.
+
+2001-03-11 13:33  mbp
+
+	* emit.c: Doc
+
+2001-03-09 12:29  mbp
+
+	* main.dox: Add more hyperlinks to site.
+
+2001-03-07 19:45  mbp
+
+	* triple.test, driver.sh: Put back the -D option to driver.sh to
+	  show debug trace.
+
+2001-03-07 19:12  mbp
+
+	* .cvsignore: Ignore generated man pages.
+
+2001-03-07 19:11  mbp
+
+	* README.CVS: Note about mcheck.
+
+2001-03-07 19:10  mbp
+
+	* librsync.3: Tidy up.
+
+2001-03-07 18:37  mbp
+
+	* autogen.sh: There is no man/ subdirectory any more.
+
+2001-03-07 18:00  mbp
+
+	* README.CVS: Oh, you need tetex too.
+
+2001-03-07 17:59  mbp
+
+	* librsync.3, rdiff.1: Add man pages; move to top directory.
+
+2001-03-06 02:11  mbp
+
+	* job.c: Doc.
+
+2001-03-06 02:09  mbp
+
+	* tube.c: Drop obsolete dogtag.
+
+2001-03-06 02:08  mbp
+
+	* tube.c: Add TODO.
+
+2001-03-06 01:44  mbp
+
+	* TODO: Add idea about passing in buffers directly, rather than
+	  through the rs_stream_t structure.
+
+2001-03-06 01:08  mbp
+
+	* trace.h, tube.c, whole.c, netint.h, patch.c, protocol.h,
+	  prototab.h, rdiff.c, readsums.c, rollsum.h, rsync.h, scoop.c,
+	  search.c, stats.c, stream.c, stream.h, sumset.c, trace.c, NEWS,
+	  acconfig.h, buf.c, command.c, command.h, configure.in, delta.c,
+	  emit.c, fileutil.c, job.c, job.h, main.dox, mkprototab.pl,
+	  mksum.c, msg.c, netint.c: Keep all stream implementation data in
+	  the rs_job_t, not in a special rs_simpl structure.  This means we
+	  no longer need to call rs_stream_init(), and many nonblocking IO
+	  functions need to be passed the job, not the stream pointer.
+	  Also get rid of the stream dogtag, which is no longer adding much
+	  protection.
+
+	  s/HS_/RS_/ to finish renaming.
+
+2001-03-06 01:03  mbp
+
+	* config.h: Doesn't belong in CVS
+
+2001-03-06 01:03  mbp
+
+	* Makefile.am: Make sure to build librsync.la before rdiff.  I
+	  think this may still have some dependencies problems.
+
+2001-03-05 18:10  mbp
+
+	* README.CVS: Note about Doxygen
+
+2001-03-05 18:09  mbp
+
+	* triple.test, tube.c, tube.test, util.c, util.h, version.c,
+	  whole.c, whole.h, rdiff.magic, readsums.c, rollsum.c, rollsum.h,
+	  rsync.h, scoop.c, search.c, search.h, stats.c, stream.c,
+	  stream.h, sumset.c, sumset.h, trace.c, trace.h, job.c, job.h,
+	  libversions.txt, main.dox, mdfour.c, mdfour.test, mkprototab.pl,
+	  mksum.c, mksum.h, mksum.test, msg.c, netint.c, netint.h, patch.c,
+	  protocol.h, prototab.h, rdiff.c, configure.in, copyq.c, delta.c,
+	  delta.test, driver.sh, emit.c, emit.h, fileutil.c, fileutil.h,
+	  hex.c, hsync.h, hsyncfile.h, includes.h, isprefix.c,
+	  isprefix.driver.c, isprefix.h, isprefix.test, Doxyfile,
+	  Makefile.am, README, README.CVS, TODO, autogen.sh, base64.c,
+	  buf.c, buf.h, checksum.c, checksum.h, codeheader.c,
+	  codeheader.man, codeheader.sh, command.c, command.h, config.h,
+	  .cvsignore: rename to librsync, and call everything rs_*.
+
+	  Move man pages into parent directory.
+
+2001-03-05 05:01  mbp
+
+	* delta.test: Don't use diff -u, as unfriendly unixes may not
+	  understand that option.
+
+2001-03-05 04:50  mbp
+
+	* Makefile.am: Don't need bash to run the tests.
+
+2001-03-05 04:47  mbp
+
+	* rdiff.c: No need to depend on getopt.h now.
+
+2001-03-05 04:40  mbp
+
+	* netint.h, search.c, search.h, sumset.h: Drop off_t from all
+	  headers to fix Solaris compile problem.
+
+2001-03-05 04:40  mbp
+
+	* rdiff.c: Show hs_long_t size in version.
+
+2001-03-05 04:39  mbp
+
+	* config.h, configure.in: Call this 0.9.1dev4.
+
+2001-03-05 04:32  mbp
+
+	* NEWS, buf.c, rdiff.c: Doc.
+
+2001-03-05 04:32  mbp
+
+	* Makefile.am: Try to make sure popt is built if required.
+
+2001-03-05 04:26  mbp
+
+	* rdiff.c: Show canonical host type.
+
+2001-03-05 04:07  mbp
+
+	* popt/Makefile.am: Build popt if not on system.
+
+2001-03-05 04:07  mbp
+
+	* configure.in: Fix mangled output interleaving.
+
+2001-03-05 03:58  mbp
+
+	* Makefile.am: Fix linker.
+
+2001-03-05 03:57  mbp
+
+	* popt/.cvsignore, Makefile.am, NEWS, autogen.sh, config.h,
+	  configure.in: Build popt if not on system.  Build and install
+	  manpages.  Call this 0.9.1dev3.
+
+2001-03-05 03:56  mbp
+
+	* rdiff.c: Doc.
+
+2001-03-05 03:15  mbp
+
+	* popt/: .cvsignore, CHANGES, COPYING, README, config.log,
+	  findme.c, findme.h, popt.c, popt.h, poptconfig.c, popthelp.c,
+	  poptint.h, poptparse.c, system.h: Include popt to more easily
+	  build on platforms which lack it
+
+2001-03-05 03:06  mbp
+
+	* netint.c: More integer type stuff.
+
+2001-03-05 02:47  mbp
+
+	* base64.c, config.h, configure.in, delta.c, hsync.h, job.h,
+	  mdfour.c, mksum.c, msg.c, netint.h, patch.c, readsums.c, scoop.c,
+	  search.c, stream.c, tube.c, util.c: typedef and header fixes to
+	  build cleanly on Alpha RedHat 7.0 at SourceForge.  Use long or
+	  long long as hs_long_t, depending on which is available.  Call
+	  this 0.9.1dev2.
+
+2001-03-05 01:59  mbp
+
+	* buf.c, delta.c: Doc.
+
+2001-03-05 01:23  mbp
+
+	* emit.c, readsums.c, stream.c, sumset.c, trace.c, whole.c,
+	  delta.c: Drop more unnecessary header dependencies.
+
+2001-03-05 01:15  mbp
+
+	* mdfour.c, mksum.c, msg.c, netint.c, netint.h, patch.c, rollsum.h,
+	  search.c, search.h, sumset.h, checksum.c, checksum.h, config.h,
+	  configure.in, delta.c, emit.c, fileutil.c, hex.c, hsync.h, job.c,
+	  job.h: Remove dependency on stdint.h and other files that may not
+	  be present on other platforms.  Change many integer types to work
+	  properly with this.  Suggestion by Poul-Henning Kamp
+	  <phk@freebsd.org>.
+
+	  Add HS_INTERNAL_ERROR code.
+
+	  Rewrite netint code to just simply bang out bytes, rather than
+	  using endian macros.
+
+2001-03-05 00:53  mbp
+
+	* NEWS: Add some recent news.
+
+2001-03-01 12:40  mbp
+
+	* emit.h, hsync.h, hsyncfile.h, job.c, job.h, mksum.c, netint.c,
+	  netint.h, patch.c, rdiff.c, readsums.c, stats.c, whole.c,
+	  Makefile.am, delta.c, emit.c: Start to put back in support for
+	  statistics.
+
+2001-03-01 12:39  mbp
+
+	* configure.in, config.h: Working towards 0.9.1.
+
+2001-03-01 12:37  mbp
+
+	* mkprototab.pl: Work with Perl 5.005.
+
+2001-03-01 12:35  mbp
+
+	* TODO: Update for current code.
+
+2001-02-28 15:34  mbp
+
+	* configure.in: Call this 0.9.0.
+
+2001-02-28 15:33  mbp
+
+	* driver.sh, mksum.test: Allow test failures through to stderr.
+
+2001-02-28 15:33  mbp
+
+	* Makefile.am: Don't install half-baked man pages.  Include test
+	  data in distribution.
+
+2001-02-28 15:21  mbp
+
+	* driver.sh, triple.test: Don't generate outrageously large
+	  logfiles when testing.
+
+2001-02-28 15:10  mbp
+
+	* Makefile.am: Set library version
+
+2001-02-28 15:09  mbp
+
+	* libversions.txt: Explain library versioning
+
+2001-02-28 14:56  mbp
+
+	* triple.test: Run through all short-buffer tests first because
+	  they're slower and more likely to break.
+
+2001-02-28 14:56  mbp
+
+	* prototab.h: Consistently use bytes, not bits, to define parameter
+	  lengths.
+
+2001-02-28 14:53  mbp
+
+	* mkprototab.sh: Change to a Perl program that can generate table
+	  and header for the protocol.
+
+2001-02-28 14:47  mbp
+
+	* buf.c: hs_infilebuf_fill: If an IO error (eg EISDIR) happens, be
+	  more careful to return an error and not lock up.
+
+2001-02-28 14:33  mbp
+
+	* emit.c, mkprototab.pl, netint.c: Make opcode naming consistently
+	  count in bytes, not bits.
+
+2001-02-28 14:13  mbp
+
+	* Makefile.am, TODO, mkprototab.pl, prototab.h: Change to a new
+	  Perl script to generate the protocol table.
+
+2001-02-28 14:11  mbp
+
+	* netint.c, netint.h: Add hs_squirt_n16.
+
+2001-02-28 14:11  mbp
+
+	* rdiff.magic: File magic description for rdiff.
+
+2001-02-28 09:57  mbp
+
+	* whole.c: Don't leak in hs_whole_run.
+
+	  Add hs_delta_file and hs_patch_file.
+
+	  Don't keep reading if we've already seen EOF.
+
+2001-02-28 09:54  mbp
+
+	* scoop.c: Better trace.
+
+2001-02-28 09:54  mbp
+
+	* rdiff.c: Add implementation for patch action.
+
+	  Complain if too many arguments are given.
+
+2001-02-28 09:52  mbp
+
+	* prototab.h: Give the right value for commands.
+
+	  Delta now sends the END command at the end of the file.  Call it
+	  END rather than EOF.
+
+2001-02-28 09:52  mbp
+
+	* patch.c: Delta now sends the END command at the end of the file.
+	  Call it END rather than EOF.
+
+2001-02-28 09:51  mbp
+
+	* msg.c: Add HS_SYNTAX_ERROR (and GSYBE quote).
+
+2001-02-28 09:51  mbp
+
+	* mkprototab.sh: Call the terminating delta command "END" rather
+	  than "EOF" for clarity.
+
+	  Table should be called hs_prototab[].
+
+2001-02-28 09:50  mbp
+
+	* job.c, job.h: Use a special state function to make sure data is
+	  flushed from the tube as the job completes.
+
+	  Put dogtags back onto jobs.
+
+	  Better trace.
+
+2001-02-28 09:48  mbp
+
+	* hsyncfile.h: Add hs_patch_file.
+
+2001-02-28 09:48  mbp
+
+	* hsync.h: Store signature in the delta job.  Add HS_TEST_SKIPPED.
+
+2001-02-28 09:47  mbp
+
+	* emit.c, emit.h: Delta now sends the END command at the end of the
+	  file.  Better trace.
+
+2001-02-28 09:47  mbp
+
+	* delta.c: Delta now sends the END command at the end of the file.
+	  Keep RUNNING until end of file on input and END is sent.  Store
+	  signature in the delta job.
+
+2001-02-28 09:40  mbp
+
+	* command.c, command.h: Call the terminating delta command "END"
+	  rather than "EOF" for clarity.
+
+2001-02-28 09:40  mbp
+
+	* TODO: file magic would be nice.
+
+2001-02-28 09:38  mbp
+
+	* triple.test, Makefile.am: Put the triple test back in -- all
+	  three stages now work.
+
+2001-02-28 09:36  mbp
+
+	* delta.test, mksum.test: Better error messages when tests fail.
+	  rdiff no longer needs the -f option.
+
+2001-02-28 09:35  mbp
+
+	* .cvsignore, driver.sh: Better error messages when tests fail.
+	  Use less different buffer sizes so that the tests run faster.
+
+2001-02-28 09:05  mbp
+
+	* gendelta.test: Don't use faked deltas anymore.
+
+2001-02-27 21:45  mbp
+
+	* driver.sh: Show exit code from commands that fail.
+
+2001-02-27 17:00  mbp
+
+	* search.c: Check for allocation failure.
+
+2001-02-27 17:00  mbp
+
+	* sumset.h: Tags must be unsigned or bad things happen.
+
+2001-02-27 17:00  mbp
+
+	* readsums.c: Allocate signature and return pointer thereto
+	  immediately job starts.
+
+2001-02-27 16:59  mbp
+
+	* rdiff.c: Must build hash table before using sums.
+
+2001-02-27 16:40  mbp
+
+	* scoop.c: Better rule for returning HS_INPUT_ENDED.
+
+2001-02-27 16:40  mbp
+
+	* mksum.c: Better trace.  Better handling of signature generation
+	  near end of input.
+
+2001-02-27 16:30  mbp
+
+	* buf.c, hsync.h, readsums.c: Rename HS_SHORT_STREAM to
+	  HS_INPUT_ENDED, a better description.
+
+2001-02-27 16:29  mbp
+
+	* scoop.c: Rename HS_SHORT_STREAM to HS_INPUT_ENDED, a better
+	  description.	Return this value on reaching the end of input.
+
+	  Distinguish between blocking with data in the input buffer and
+	  not.
+
+2001-02-27 16:28  mbp
+
+	* msg.c: Rename HS_SHORT_STREAM to HS_INPUT_ENDED, a better
+	  description.	Improved messages.
+
+2001-02-27 16:20  mbp
+
+	* scoop.c: Reformat only.
+
+2001-02-27 16:15  mbp
+
+	* buf.h, hsync.h, job.c, job.h, mksum.c, readsums.c, whole.c,
+	  buf.c: Whether eof has been seen on input should be a property of
+	  the stream.
+
+	  Use this to properly handle expected EOF on signatures.
+
+2001-02-27 16:08  mbp
+
+	* readsums.c: Also load strong signatures into signature set.  Show
+	  block signatures as they're loaded.
+
+2001-02-27 15:54  mbp
+
+	* scoop.c: Doc.
+
+2001-02-27 15:45  mbp
+
+	* netint.c: Be more careful about handling of renumbered hs_result
+	  codes.  (I think this was safe, but it wasn't nice.)
+
+2001-02-27 15:42  mbp
+
+	* delta.c, job.h, mksum.c, patch.c, readsums.c: Jobs include a name
+	  string.
+
+2001-02-27 15:42  mbp
+
+	* trace.c: Change log format.
+
+2001-02-27 15:42  mbp
+
+	* job.c: Jobs emit a warning if called when complete.  Jobs include
+	  a name string.
+
+2001-02-27 15:33  mbp
+
+	* delta.c, job.c, job.h, mksum.c, patch.c, sumset.c, sumset.h,
+	  whole.c: Add space in a hs_job_t to hold partially-read checksum;
+	  update dependencies to declare this.
+
+2001-02-27 15:32  mbp
+
+	* readsums.c: Drop old blocking-IO code.  Add a state for reading
+	  weak checksums.
+
+2001-02-27 15:16  mbp
+
+	* trace.c: Put rcsid back in.
+
+2001-02-27 15:14  mbp
+
+	* checksum.c, checksum.h, hsync.h, readsums.c, scoop.c, search.c,
+	  search.h: Put search.c & search.h back in to implement checksum
+	  searching.  Needed to update some names to get them to fit again.
+
+2001-02-27 15:14  mbp
+
+	* Makefile.am: Put search.c & search.h back in to implement
+	  checksum searching.
+
+	  Add includes.h in source distribution, which is already used by
+	  several files.
+
+2001-02-27 14:57  mbp
+
+	* readsums.c, search.c, search.h, sumset.c, sumset.h, whole.c,
+	  hsyncfile.h, rdiff.c: Rename hs_sumset to hs_signature and
+	  hs_sum_buf_t to hs_block_sig_t for consistency.  Add
+	  hs_loadsig_add_sum to store just-loaded checksums.
+
+2001-02-27 14:44  mbp
+
+	* job.c, job.h, mksum.c, readsums.c: Rename hs_sumset to
+	  hs_signature for consistency.  Put handling of hs_job_s_complete
+	  fully into job.c.
+
+2001-02-27 14:34  mbp
+
+	* hsync.h, job.h, readsums.c, sumset.h: Rename hs_sumset to
+	  hs_signature for consistency.
+
+2001-02-27 14:22  mbp
+
+	* AUTHORS, THANKS, codeheader.sh, command.h, delta.test, mksum.h,
+	  netint.c, netint.h, readsums.c, snprintf.c, sumset.h, util.h: Fix
+	  screwy search-and-replace.
+
+2001-02-27 14:18  mbp
+
+	* job.c, job.h, readsums.c: Add hs_job_fail as protection against
+	  people trying to iterate on a job that's already failed.
+
+2001-02-27 14:07  mbp
+
+	* Makefile.am, fileutil.c, hsync.h, msg.c, rdiff.c, readsums.c,
+	  trace.c: Just use plain hs_result codes for exit values.
+
+2001-02-27 14:06  mbp
+
+	* util.c, util.h: Drop hs_readintarg, which is obsolete by popt.
+
+2001-02-27 13:50  mbp
+
+	* job.c: Doc.
+
+2001-02-27 13:46  mbp
+
+	* job.c: Doc.
+
+2001-02-27 00:37  mbp
+
+	* readsums.c: Return correct result for HS_RUNNING.  Also read
+	  block_len and strong_sum_len from signature.
+
+2001-02-27 00:33  mbp
+
+	* mksum.c: Include block_len and strong_sum_len in signature file.
+
+2001-02-27 00:27  mbp
+
+	* whole.c, tube.c, trace.c, hsync.h, job.c, mksum.c, msg.c,
+	  netint.c, patch.c, rdiff.c, scoop.c, buf.c, delta.c: Rename HS_OK
+	  to HS_DONE and HS_RUN_OK to HS_RUNNING to be more descriptive.
+
+2001-02-27 00:27  mbp
+
+	* Doxyfile, main.dox: Rename HS_OK to HS_DONE.	Add link to
+	  printable manual.  Run Latex in batch mode.
+
+2001-02-27 00:25  mbp
+
+	* readsums.c: Change HS_OK to HS_DONE, which is more descriptive.
+	  Also read block length from signatures.
+
+2001-02-27 00:11  mbp
+
+	* doxy.mk, hsync.h, hsyncfile.h, main.dox, protocol.h, rdiff.c,
+	  readsums.c, whole.c: Rename hs_readsig to hs_loadsig.  Move
+	  Doxygen functions into main Makefile.  Doc.
+
+2001-02-27 00:09  mbp
+
+	* Makefile.am: Add Doxygen targets.
+
+2001-02-26 23:23  mbp
+
+	* protocol.h: The protocol is not really compatible with gdiff
+	  anymore, so change the magic.
+
+2001-02-26 23:22  mbp
+
+	* hsync.h: Add hs_result_to_exit, and more specific error codes.
+
+2001-02-26 23:22  mbp
+
+	* base64.c: Cosmetic.
+
+2001-02-26 23:21  mbp
+
+	* whole.c, rdiff.c, hsyncfile.h: Add stubbed hs_delta_file.
+
+2001-02-26 23:20  mbp
+
+	* trace.c: Add hs_result_to_exit to aid in rdiff.  Include
+	  severities in log messages.
+
+2001-02-26 22:17  mbp
+
+	* README.CVS: Pointless update to test CVS loginfo.
+
+2001-02-26 22:02  mbp
+
+	* util.h, netint.h, patch.c, protocol.h, prototab.h, rollsum.c,
+	  rollsum.h, scoop.c, search.c, search.h, stats.c, stream.c,
+	  stream.h, sumset.c, sumset.h, trace.c, trace.h, tube.c, util.c,
+	  base64.c, buf.c, buf.h, checksum.c, checksum.h, codeheader.c,
+	  command.c, command.h, copyq.c, delta.c, doxy.mk, emit.c, emit.h,
+	  hex.c, job.c, job.h, mdfour.c, msg.c, netint.c: Doc.	Consistency
+	  cleanups.
+
+2001-02-26 22:01  mbp
+
+	* mksum.c, mksum.h: Doc.  Rename 'mksum' to 'sig'.
+
+2001-02-26 21:59  mbp
+
+	* hsyncfile.h: Doc.  Remove dead prototypes.
+
+2001-02-26 21:59  mbp
+
+	* hsync.h: Doc.  Add standard exit codes.  Rename 'mksum' to 'sig'.
+
+2001-02-26 21:47  mbp
+
+	* version.c: Change version string, move licence to rdiff.c.
+
+2001-02-26 21:45  mbp
+
+	* whole.c, whole.h: hs_file_open accepts null pointers for name to
+	  get default, and takes a stdio-style mode string.  Add standard
+	  exit codes.  Rename 'mksum' to 'sig'.
+
+2001-02-26 21:43  mbp
+
+	* fileutil.c, fileutil.h: hs_file_open accepts null pointers for
+	  name to get default, and takes a stdio-style mode string.  Add
+	  standard exit codes.	Drop hs_file_close, which was unused.
+
+2001-02-26 21:41  mbp
+
+	* rdiff.c: Drop rsum.c; move all operations into rdiff.c.  Fix
+	  option processing and help messages.	hs_file_open accepts null
+	  pointers for name to get default, and takes a stdio-style mode
+	  string.  Add standard exit codes.
+
+2001-02-26 21:39  mbp
+
+	* rsum.c: Drop rsum.c; move all operations into rdiff.c.
+
+2001-02-26 21:38  mbp
+
+	* config.h: Call this 0.9.0dev.
+
+2001-02-26 21:36  mbp
+
+	* configure.in: Call this 0.9.0dev.  Drop the -W warning flag, as
+	  it gets upset with popt decls.
+
+2001-02-26 21:29  mbp
+
+	* Makefile.am: Get rdiff(1) back on track.
+
+2001-02-26 21:29  mbp
+
+	* main.dox: More and better docs.
+
+2001-02-26 21:27  mbp
+
+	* isprefix.c, isprefix.driver.c, isprefix.h: Rename to isprefix().
+
+2001-02-26 21:25  mbp
+
+	* doxy.mk: Include LaTeX stuff.
+
+2001-02-26 21:23  mbp
+
+	* Doxyfile: Don't generate pointless man pages.
+
+2001-02-26 21:19  mbp
+
+	* extra.dox, gloss.dox: Add more documentation.
+
+2001-02-25 17:04  mbp
+
+	* main.dox: Grammar fix.
+
+2001-02-25 17:03  mbp
+
+	* header.html: Fix image link.
+
+2001-02-25 16:55  mbp
+
+	* stats.c, sumset.c, trace.c, trace.h, util.c, version.c, whole.c,
+	  Doxyfile, delta.c, hsync.h, job.c, job.h, main.dox, mdfour.c,
+	  mksum.c, rdiff.c, readsums.c, rsum.c: More API docs.	Don't rely
+	  on syslog.  Generate a smaller set of docs that only exposes
+	  hsync.h.
+
+2001-02-25 15:04  mbp
+
+	* doxy.mk: Also include logo graphic.
+
+2001-02-25 15:02  mbp
+
+	* rproxy-small-logo.png: Logo file
+
+2001-02-25 15:02  mbp
+
+	* .cvsignore: Ignore Doxygen output.
+
+2001-02-25 15:01  mbp
+
+	* main.dox: Fix section headers.  Explain trace.
+
+2001-02-25 15:00  mbp
+
+	* header.html: Logo in parent directory.
+
+2001-02-25 15:00  mbp
+
+	* doxy.mk: How to upload doxygen stuff.
+
+2001-02-25 14:48  mbp
+
+	* hsync.h: Fix rcsid.  Doc.
+
+2001-02-25 14:32  mbp
+
+	* hsync.h: Add lots of Doxy comments.
+
+2001-02-25 14:32  mbp
+
+	* Doxyfile: Move the libhsync programmer's manual from SGML into
+	  the Doxygen source.  More fiddling with options.
+
+2001-02-25 14:32  mbp
+
+	* main.dox, rdiff.dox: Move the libhsync programmer's manual from
+	  SGML into the Doxygen source.
+
+2001-02-25 13:52  mbp
+
+	* version.c: Fix Doxygen.
+
+2001-02-25 13:50  mbp
+
+	* .cvsignore, Doxyfile, doxygen.css, footer.html, header.html,
+	  hsync.h: More Doxygen markup.  Make the output HTML look like the
+	  rproxy style.
+
+2001-02-25 12:11  mbp
+
+	* .cvsignore, Doxyfile, README, hsync.h, job.c, job.h, mdfour.c,
+	  mksum.c, version.c: Start to add API documentation using Doxygen.
+
+2001-02-15 09:31  mbp
+
+	* AUTHORS, Makefile.am, THANKS, base64.c, buf.c, buf.h, checksum.c,
+	  checksum.h, codeheader.c, codeheader.sh, command.c, command.h,
+	  configure.in, copyq.c, delta.c, delta.test, emit.c, emit.h,
+	  fileutil.c, fileutil.h, hex.c, hsync.h, hsyncfile.h, isprefix.c,
+	  isprefix.driver.c, isprefix.h, job.c, job.h, mdfour.c,
+	  mkprototab.sh, mksum.c, mksum.h, mksum.test, msg.c, netint.c,
+	  netint.h, patch.c, protocol.h, prototab.h, rdiff.c, readsums.c,
+	  rollsum.c, rollsum.h, rsum.c, scoop.c, search.c, search.h,
+	  snprintf.c, stats.c, stream.c, stream.h, sumset.c, sumset.h,
+	  trace.c, trace.h, tube.c, util.c, util.h, version.c, whole.c,
+	  whole.h: Draw your own conclusions
+
+2001-02-12 12:10  mbp
+
+	* .cvsignore: Start implementing hs_file_readsum.
+
+2001-02-12 12:09  mbp
+
+	* rdiff.c, readsums.c, rsum.c, scoop.c, trace.c, whole.c,
+	  Makefile.am, README, buf.c, buf.h, codeheader.c, config.h,
+	  configure.in, hsync.h, hsyncfile.h, job.c, job.h, mksum.c,
+	  netint.c: Switch to using popt.  Start implementing
+	  hs_file_readsum.  Move hs_mksum_s_complete to be a generic
+	  hs_job_s_complete that all types of stream processor can use.
+	  Fix typo in trace.c.	Allow hs_whole_run to work on operations
+	  that do only input or only output.
+
+2001-02-08 10:24  mbp
+
+	* version.c, whole.c, whole.h, search.h, snprintf.c, stats.c,
+	  stream.c, stream.h, streamfile.c, streamfile.h, sumset.c,
+	  sumset.h, trace.c, trace.h, tube.c, util.c, util.h, mksum.h,
+	  netint.c, netint.h, patch.c, prototab.h, rdiff.c, readsums.c,
+	  rollsum.c, rollsum.h, rsum.c, scoop.c, search.c, command.h,
+	  config.h, configure.in, copyq.c, delta.c, emit.c, emit.h, file.c,
+	  file.h, fileutil.c, fileutil.h, hex.c, hsync.h, hsyncfile.h,
+	  job.c, job.h, mdfour.c, mkprototab.sh, mksum.c, Makefile.am,
+	  TODO, acconfig.h, autogen.sh, base64.c, buf.c, buf.h, checksum.c,
+	  checksum.h, codeheader.c, command.c: Change to a generic hs_job_t
+	  class so we can share the iterator code.  Drop HSFILE interface;
+	  not very useful at the moment.  Therefore we could drop
+	  streamfile and other over-complex code as well.  Doc.  Generate
+	  strong checksums as well as weak; update the test case to reflect
+	  this.  Drop leading underscores on function names; they're not
+	  proving very useful.	rdiff/rsum are currently broken, but I
+	  wanted to commit the new library interface anyhow.  Started
+	  changing towards libpopt.
+
+2001-01-16 23:32  mbp
+
+	* mksum.test: Fix for systems with a non-GNU and less forgiving
+	  getopt.
+
+2001-01-01 20:21  mbp
+
+	* whole.c, hsyncfile.h, rdiff.c: Put back support for generating
+	  the md4sum from the command line.  Call this `rdiff md4' not
+	  `rdiff sum' for clarity.
+
+2001-01-01 20:20  mbp
+
+	* mkprototab.sh: Doc.
+
+2001-01-01 20:20  mbp
+
+	* patch.c: Start to add support for the checking-sum.  Doc.
+
+2001-01-01 19:52  mbp
+
+	* autogen.sh: Also check for libtool.
+
+2000-12-19 11:08  mbp
+
+	* tube.c: Better trace.
+
+2000-12-19 11:07  mbp
+
+	* trylog.c, tube.driver.c: Obsolete.
+
+2000-12-19 11:07  mbp
+
+	* sumset.h: Put checksum code back in.
+
+2000-12-19 11:06  mbp
+
+	* streamfile.c, streamfile.h: Cleanup types.
+
+2000-12-19 11:06  mbp
+
+	* stream.c: Doc.
+
+2000-12-19 11:06  mbp
+
+	* scoop.c, stream.h: Add _hs_scoop_read_rest to handle short blocks
+	  at eof.
+
+2000-12-19 11:05  mbp
+
+	* rdiff.c, whole.c: Move whole-file processing to whole.c, and put
+	  it in the library.
+
+2000-12-19 11:04  mbp
+
+	* patch.c: Start adding copy callback.
+
+2000-12-19 11:04  mbp
+
+	* mksum.c: Nonoptimal stream-based mksum code.
+
+2000-12-19 11:03  mbp
+
+	* hsync.h: Move file io stuff to hsyncfile.h Start adding copy
+	  callback.  Doc.
+
+2000-12-19 11:02  mbp
+
+	* file.c, file.h: Make the hs_file structure more generic.  Add
+	  stdio-style mksum interface.
+
+2000-12-19 11:02  mbp
+
+	* mksum.test: New test case: check consistency of file signatures.
+
+2000-12-19 11:01  mbp
+
+	* driver.sh, delta.test: Improved test driver: show progress and
+	  better errors on failure.
+
+2000-12-19 11:01  mbp
+
+	* checksum.c, checksum.h: Update checksum.c for current headers.
+
+2000-12-19 11:01  mbp
+
+	* hsyncfile.h: Move file io stuff to hsyncfile.h
+
+2000-12-19 11:00  mbp
+
+	* Makefile.am: Add more source.  Rename test directories.  Add
+	  mksum consistency test.  Add hsyncfile.h.
+
+2000-12-19 10:59  mbp
+
+	* ChangeLog, README.CVS: CVS has moved.
+
+2000-12-19 10:59  mbp
+
+	* .indent.pro: Obsolete.
+
+2000-12-19 10:58  mbp
+
+	* .cvsignore: Ignore .ctypes.
+
+2000-12-15 10:25  mbp
+
+	* hsync.h, file.c: Use a generic HSFILE, not a special one for
+	  patching.
+
+2000-12-15 07:43  mbp
+
+	* rdiff.c: Convert rdiff to use hs_patch_open and HSFILE*.
+
+2000-12-15 07:43  mbp
+
+	* file.c: hs_patch_read: Return the correct amount of output data.
+
+2000-12-15 06:48  mbp
+
+	* file.c, hsync.h: Change FILE* interface: now, you open an HSFILE
+	  and read from it into your own buffer.  This is more like both
+	  stdio and zlib's high-level interface.
+
+2000-12-14 10:03  mbp
+
+	* configure.in: Find the libhsync source code correctly.
+
+2000-12-12 17:48  mbp
+
+	* patch.c: Usable implementation of LITERAL, using the tube to copy
+	  data through from the input.
+
+2000-12-12 17:46  mbp
+
+	* stream.c: More trace output while copying.
+
+2000-12-12 17:42  mbp
+
+	* msg.c: Add more error messages.
+
+2000-12-12 17:27  mbp
+
+	* .emacsindent: Replaced by codeheader.c
+
+2000-12-12 17:24  mbp
+
+	* emit.driver.c: Drop outdated test driver.
+
+2000-12-12 17:24  mbp
+
+	* emit.c, emit.h, netint.c, netint.h: Move netint code to netint.c.
+
+2000-12-12 17:17  mbp
+
+	* patch.c: Add a much cooler patch implementation; if we flesh out
+	  the rest of the state functions I think we will be there.
+
+2000-12-12 17:16  mbp
+
+	* emit.driver.c: Delete obsolete headers.
+
+2000-12-12 17:16  mbp
+
+	* Makefile.am, file.c, hsync.h, msg.c: Add hs_strerror, and show
+	  result string at conclusion of file patch operation.
+
+2000-12-12 17:12  mbp
+
+	* tube.driver.c: Delete obsolete headers.
+
+2000-12-12 17:12  mbp
+
+	* netint.c, netint.h: Add _hs_suck_netint
+
+2000-12-12 16:51  mbp
+
+	* Makefile.am, delta.test, netint.c, scoop.c, stream.h: Add
+	  readahead capability to scoop.
+
+2000-12-12 16:33  mbp
+
+	* squirt.driver.c: No longer a very useful test.
+
+2000-12-12 12:56  mbp
+
+	* stream.driver.c, stream.test: No longer a very useful test.
+
+2000-12-12 12:24  mbp
+
+	* delta.test: Test stream delta decoding
+
+2000-12-12 12:12  mbp
+
+	* stream.driver.c, stream.h, sumset.c, sumset.h, trace.c, trace.h,
+	  trylog.c, tube.c, tube.driver.c, tube.test, util.c, util.h,
+	  version.c, rollsum.h, search.c, search.h, snprintf.c,
+	  squirt.driver.c, stats.c, stream.c, hsync.h, includes.h,
+	  isprefix.c, isprefix.driver.c, isprefix.h, mdfour.c,
+	  mkprototab.sh, mksum.c, mksum.h, netint.c, netint.h, patch.c,
+	  protocol.h, prototab.h, rdiff.c, rollsum.c, base64.c, checksum.c,
+	  checksum.h, codeheader.c, codeheader.sh, command.c, command.h,
+	  copyq.c, delta.c, emit.c, emit.driver.c, emit.h, file.c, file.h,
+	  fileutil.c, fileutil.h, hex.c, Makefile.am: Lots of random
+	  hacking on the new mem-mem stream interface.	Applying deltas
+	  kinda slightly works with the new API.
+
+	  Give domain-credit to Linuxcare; change to Linux code style cause
+	  every emacs understands it.
+
+2000-12-12 12:07  mbp
+
+	* dec.c, gdproto.c, libhsyncinfo.c, private.h, streamcpy.c,
+	  streamcpy.h, sum_p.h, tube.h, vtr.h: Obsoleted by new stream
+	  interface.
+
+2000-12-12 11:23  mbp
+
+	* scoop.c: Scoop: new module for managing arbitrary readahead from
+	  stream input.
+
+2000-12-12 11:18  mbp
+
+	* alw.c, alw.h, nozzle.c, nozzle.h, streamfile.c, streamfile.h:
+	  Convert from nozzle to streamfile interface.	Both map files onto
+	  sockets, but streamfiles do it without introducing complex little
+	  objects.  I obviously had spent too much time in Java.
+
+2000-12-12 11:13  mbp
+
+	* inhale.c, inhale.h, hsdecode.c, hsdumpsums.c, hsencode.c, nad.c,
+	  nad_p.h, nadsrch.c: Obsolete by new stream interface.
+
+2000-12-09 16:10  mbp
+
+	* trace.c, trace.h: Make _hs_trace_va private.	This avoids
+	  everybody needing stdarg.h.
+
+2000-12-09 16:01  mbp
+
+	* varint.c, varint.h: Merged into netint.c
+
+2000-12-09 15:26  mbp
+
+	* .cvsignore: Ignore meat by-products
+
+2000-12-09 15:25  mbp
+
+	* Makefile.am, emit.driver.c, gendelta.driver.c: Rename
+	  'gendelta.driver' to emit.driver; this is a more accurate name.
+
+2000-12-08 15:19  mbp
+
+	* mapptr.c, nadout.c, netio.c, sockcli.c, socksvr.c, test-chain.sh,
+	  test-cmds.in, test-cmds.sh, test-double.sh, test-exact.sh,
+	  test-mapeof.sh, test-mapover.sh, test-mappipe.sh,
+	  test-mapread.sh, test-maptcp.sh, test-md4sizes.sh, test-meta.sh,
+	  test-nadsum.sh, test-newsum.sh, test-pairs.sh, test-seqnad.sh,
+	  test-tricky.sh, testall-map.sh, compress.c, fileio.c, hose.c,
+	  hsalw.c, hsmapread.c, hsmdfour.c, hsmksum.c, hsnad.c,
+	  make-cmds.py, map_p.h, mapcopy.c: Drop lots of old code.
+
+2000-12-08 15:10  mbp
+
+	* compress.h, filebuf.c, genmaptest.c, hose.h, hsemit.c,
+	  hsinhale.c, inbuf.c, litbuf.c, mapptr.h, membuf.c, nadlit.c,
+	  netio.h, oldinhale.c, ptrbuf.c, sockrun.c, test-thrice.sh, vtr.c:
+	  Drop obsolete files; moving to zlib-style interface.
+
+2000-12-07 13:42  mbp
+
+	* Makefile.am, NEWS, THANKS, acconfig.h, alw.c, alw.h, base64.c,
+	  checksum.c, checksum.h, codeheader.c, command.h, configure.in,
+	  copyq.c, dec.c, driver.sh, emit.c, emit.h, file.c, file.h,
+	  fileutil.c, fileutil.h, gdproto.c, hex.c, hsdecode.c,
+	  hsdumpsums.c, hsencode.c, hsnad.c, hsync.h, includes.h, inhale.c,
+	  inhale.h, libhsyncinfo.c, mdfour.c, mdfour.test, mksum.c,
+	  mksum.h, nad.c, nad_p.h, nadsrch.c, nozzle.c, private.h,
+	  protocol.h, prototab.h, rollsum.c, rollsum.h, search.c, search.h,
+	  stats.c, stream.c, stream.driver.c, stream.h, stream.test,
+	  sum_p.h, sumset.c, sumset.h, trace.c, trace.h, trylog.c, tube.c,
+	  tube.driver.c, tube.h, tube.test, util.c, util.h, varint.c,
+	  varint.h, vtr.h, config.h, delta.c, gendelta.driver.c,
+	  gendelta.test, isprefix.c, isprefix.driver.c, isprefix.h,
+	  isprefix.test, netint.c, netint.h, nozzle.h, rdiff.c,
+	  squirt.driver.c, streamcpy.c, streamcpy.h, version.c: Further
+	  fiddling with the streams model.
+
+2000-11-30 13:21  mbp
+
+	* tube.h, tube.test, util.c, util.h, libhsyncinfo.c, mdfour.c,
+	  mdfour.test, mksum.c, netio.c, netio.h, nozzle.c, private.h,
+	  protocol.h, stream.c, stream.driver.c, stream.h, stream.test,
+	  trace.c, tube.c, tube.driver.c, .cvsignore, .gdbinit,
+	  Makefile.am, base64.c, codeheader.c, codeheader.man,
+	  configure.in, driver.sh, file.c, file.h, hex.c, hsmdfour.c,
+	  hsmksum.c, hsync.h, includes.h: Start of a huge redesign towards
+	  0.6.0.  This version will natively do only memory-to-memory
+	  options, like zlib.  Lots of code has been snipped out or
+	  disabled.  Some man pages added.  I like man pages, but not
+	  troff.  Test cases are now *.test.  Drivers are *.driver.
+
+2000-10-10 15:31  mbp
+
+	* emit.h: Patch from Debian bug #74391 to compile cleanly on Alpha.
+
+2000-09-18 19:55  mbp
+
+	* configure.in: Moving towards 0.5.8.
+
+2000-08-27 22:09  mbp
+
+	* NEWS: Doc.
+
+2000-08-27 22:06  mbp
+
+	* netio.c, TODO: Better error message on broken write.
+
+2000-08-27 22:06  mbp
+
+	* hsmapread.c: Fix compiler warning.
+
+2000-08-27 22:05  mbp
+
+	* Makefile.am, hsync.h: Rename vtr to alw; start to write a harness
+	  for it.
+
+2000-08-27 22:01  mbp
+
+	* .cvsignore, alw.c, alw.h, hsalw.c: Rename vtr to alw; start to
+	  write a harness for it.
+
+2000-08-27 19:59  mbp
+
+	* mapptr.c: Fix signedness warnings.
+
+2000-08-27 19:58  mbp
+
+	* genmaptest.c, test-mapover.sh, test-mappipe.sh, test-mapread.sh,
+	  test-maptcp.sh, test-mapeof.sh: Specify a random seed for
+	  genmaptest on the command line.  Make sure to keep trying if
+	  hsmapread is using nonblocking IO.
+
+2000-08-27 19:57  mbp
+
+	* hsmapread.c: untabify
+
+2000-08-27 18:58  mbp
+
+	* configure.in: Call this 0.5.7.
+
+2000-08-25 18:41  mbp
+
+	* TODO, NEWS: Doc.
+
+2000-08-13 20:43  mbp
+
+	* configure.in: If we need replacement functions like snprintf,
+	  then link them into the sample programs.  Call this 0.5.7dev2.
+
+2000-08-13 20:43  mbp
+
+	* TODO, nad.c: Doc.
+
+2000-08-13 20:43  mbp
+
+	* Makefile.am: If we need replacement functions like snprintf, then
+	  link them into the sample programs.
+
+2000-08-13 20:42  mbp
+
+	* hsync.h: Include stdint.h into this file so that prototypes
+	  involving uint32_t and similar types work OK.
+
+2000-08-11 16:21  mbp
+
+	* stats.c: Stats should include only those commands that were
+	  actually used.
+
+2000-08-11 16:20  mbp
+
+	* TODO: Doc.
+
+2000-08-11 12:53  mbp
+
+	* filebuf.c, fileutil.c, fileutil.h, hsdecode.c, hsync.h: Make
+	  hs_file_open public.
+
+2000-08-11 12:52  mbp
+
+	* nadsrch.c: Fix type warning.
+
+2000-08-11 01:16  mbp
+
+	* litbuf.c: Fix header file.
+
+2000-08-11 01:15  mbp
+
+	* filebuf.c, fileutil.c, hsync.h: Add hs_file_close utility.  Check
+	  fds are valid.
+
+2000-08-11 01:14  mbp
+
+	* trace.h: Doc.
+
+2000-08-10 14:02  mbp
+
+	* Makefile.am: Find mkprototab.sh in the source directory when
+	  doing a VPATH build.
+
+2000-08-09 22:03  mbp
+
+	* TODO, configure.in: Moving towards 0.5.7.
+
+2000-08-09 20:34  mbp
+
+	* configure.in: Call this 0.5.6.
+
+2000-08-09 12:11  mbp
+
+	* configure.in, util.c: Moving towards 0.5.6pre2.
+
+2000-08-08 19:20  mbp
+
+	* snprintf.c, snprintf.h: Add CVS tags.  Make vsnprintf prototype
+	  visible.
+
+2000-08-08 19:19  mbp
+
+	* configure.in: Call this 0.5.6pre1.
+
+2000-08-08 19:19  mbp
+
+	* codeheader.c: Converted all old files, so we don't need the old
+	  copyright anymore.
+
+2000-08-08 19:18  mbp
+
+	* autogen.sh: Echo configuration commands as they are executed.
+
+2000-08-08 11:21  mbp
+
+	* varint.h: Add code header.
+
+2000-08-07 18:37  mbp
+
+	* Makefile.am, configure.in, includes.h, inhale.c, inhale.h,
+	  snprintf.h, varint.c, varint.h, vtr.c: Fixes to build on
+	  sgi-irix-gcc-gmake
+
+2000-08-07 17:23  mbp
+
+	* mkprototab.sh: Show script name in output.  Don't use bash
+	  extensions so that we can build on SGI with plain Bourne shell.
+
+2000-08-07 16:24  mbp
+
+	* test-maptcp.sh: Work properly when doing a vdir build.
+
+2000-08-07 11:46  mbp
+
+	* hsync.h, Makefile.am, configure.in, copyq.c, dec.c, genmaptest.c,
+	  hsinhale.c, hsmapread.c, hsmdfour.c, includes.h, inhale.c,
+	  inhale.h, mapcopy.c, mapptr.c, mapptr.h, mksum.c, nad.c,
+	  nadout.c, nadsrch.c, oldinhale.c, snprintf.c, stats.c,
+	  test-maptcp.sh, trace.c, vtr.c, vtr.h: Start adding vtr, which is
+	  mapptr-based decoding.  Not complete yet.  Use snprintf, and
+	  supply our own replacement if there is not one on the system.
+	  Add new test pattern `decoder' to genmaptest which produces a
+	  pattern similar to vtr decoding.  Add new map_copy function to
+	  intelligently copy through data from a mapptr.
+
+2000-08-06 22:48  mbp
+
+	* protocol.h, .cvsignore, Makefile.am, NEWS, TODO, acconfig.h,
+	  autogen.sh, checksum.c, checksum.h, codeheader.c, command.h,
+	  configure.in, copyq.c, dec.c, driver.sh, emit.c, emit.h, enc.c,
+	  fileutil.c, fileutil.h, gdproto.c, genmaptest.c, header, hex.c,
+	  hose.c, hose.h, hsdecode.c, hsdumpsums.c, hsemit.c, hsencode.c,
+	  hsfilebufcat.c, hsinhale.c, hsmapread.c, hsmdfour.c, hsmksum.c,
+	  hsnad.c, hsync.h, hsyncproto.h, includes.h, inhale.c, inhale.h,
+	  libhsyncinfo.c, litbuf.c, map_p.h, mapptr.c, mapptr.h, mdfour.c,
+	  membuf.c, mkprototab.sh, mksum.c, nad.c, nad_p.h, nadlit.c,
+	  nadout.c, nadsrch.c, netio.c, netio.h, oldinhale.c, private.h,
+	  prototab.h, ptrbuf.c, rollsum.c, rollsum.h, search.c, search.h,
+	  sockcli.c, sockrun.c, socksvr.c, stats.c, sum_p.h, sumset.c,
+	  test-cat.sh, test-cmds.sh, trace.c, trace.h, trylog.c, util.c:
+	  Drop use of libtool.	Automatically generate a table of commands
+	  so that we can decode them more easily.  Implement mapptr based
+	  decoding of commands, and change the tests to use this.  (Full
+	  decode still uses the real code.) Remove half-hearted large file
+	  support.
+
+2000-08-04 17:41  mbp
+
+	* TODO, inhale.c: Doc after comments from Rusty.
+
+2000-08-04 15:05  mbp
+
+	* checksum.c, checksum.h, codeheader.c, codeheader.sh, compress.c,
+	  configure.in, copyq.c, dec.c, emit.c, emit.h, enc.c, filebuf.c,
+	  fileio.c, fileutil.c, fileutil.h, gdproto.c, genmaptest.c, hex.c,
+	  hose.c, hose.h, hsdecode.c, hsdumpsums.c, hsemit.c, hsencode.c,
+	  hsfilebufcat.c, hsinhale.c, hsmapread.c, hsmdfour.c, hsmksum.c,
+	  hsnad.c, hsync.h, hsyncproto.h, inbuf.c, includes.h, inhale.c,
+	  libhsyncinfo.c, litbuf.c, map_p.h, mapptr.c, mapptr.h, mdfour.c,
+	  membuf.c, mksum.c, mksum.h, nad.c, nad_p.h, nadlit.c, nadout.c,
+	  nadsrch.c, netio.c, netio.h, nozzle.c, private.h, ptrbuf.c,
+	  rollsum.c, rollsum.h, search.c, search.h, sockcli.c, sockrun.c,
+	  socksvr.c, stats.c, sum_p.h, sumset.c, sumset.h, trace.c,
+	  trace.h, trylog.c, util.c, util.h: Changing libhsync to GNU LGPL,
+	  so update statements of license/warranty.  Start to phase out
+	  filebuf and inbuf in favour of mapptr.
+
+2000-08-04 14:52  mbp
+
+	* Makefile.am: Don't check for Python because we don't use it.
+	  AC_SEARCH_LIBS already adds the found libraries to $LIBS, so
+	  don't do it explicitly.
+
+2000-08-03 00:49  mbp
+
+	* Makefile.am, fileutil.c, hsmapread.c, includes.h, netio.c,
+	  search.c, sockrun.c, socksvr.c, stats.c, trace.c: Patches to
+	  build cleanly on SGI:
+
+	   * require bash to run tests, not just $SHELL
+
+	   * look in some different header files and use slightly less
+	  gnudish
+	     type_t's.
+
+	   * temporarily don't use snprintf, just sprintf (eek!)
+
+2000-08-03 00:40  mbp
+
+	* configure.in, mapptr.c, sockrun.c: Doc.
+
+2000-08-03 00:39  mbp
+
+	* nadnozzle.c, nozzle.c: Rename nadnozzle to nozzle.  Doc.
+
+2000-08-03 00:38  mbp
+
+	* Makefile.am, NEWS: Don't install debugging tools into
+	  /usr/local/bin; leave them in the source directory.
+
+2000-08-03 00:29  mbp
+
+	* AUTHORS, Makefile.am, NEWS, README, THANKS, configure.in,
+	  copyq.c, mdfour.c, nad.c: Doc.  Include README.CVS in tarball.
+	  Moving towards 0.5.6.
+
+2000-08-03 00:28  mbp
+
+	* driver.sh: Just call the testtube `tmp-foo' not `tmp-test-foo'.
+
+2000-07-31 12:39  mbp
+
+	* header, hsyncproto.h, nad.c, nadnozzle.c: Doc.
+
+2000-07-31 12:24  mbp
+
+	* COPYING, codeheader.c: Change to the Lesser GPL.
+
+2000-07-31 02:02  mbp
+
+	* TODO: Lots more documentation.
+
+2000-07-31 02:00  mbp
+
+	* nadnozzle.c: The nad nozzle: smart non-blocking output from nad
+	  encoding.  At the moment this file just has design documentation.
+
+2000-07-30 05:35  mbp
+
+	* Makefile.am, configure.in: Fix up more build errors
+
+2000-07-30 05:17  mbp
+
+	* Makefile.am: Fix to build cleanly
+
+2000-07-30 04:24  mbp
+
+	* .cvsignore, Makefile.am, NEWS, TODO, checksum.c, configure.in,
+	  copyq.c, dec.c, driver.sh, emit.c, enc.c, header, hex.c,
+	  hsdumpsums.c, hsencode.c, hsmdfour.c, hsmksum.c, hsnad.c,
+	  hsync.h, includes.h, litbuf.c, mapptr.c, mdfour.c, nad.c,
+	  nad_p.h, nadlit.c, nadout.c, nadsrch.c, private.h, search.c,
+	  search.h, stats.c, sum_p.h, sumset.c, test-chain.sh,
+	  test-cmds.in, test-cmds.sh, test-double.sh, test-exact.sh,
+	  test-mapover.sh, test-mappipe.sh, test-mapread.sh,
+	  test-maptcp.sh, test-nadsum.sh, test-pairs.sh, test-seq.sh,
+	  test-thrice.sh, test-tricky.sh, test-usebackups.sh, trace.c,
+	  trace.h:  * Put genuine search encoding back into the nad
+	  algorithm, and
+	     further clean up the nad code.  Literals are now sent out
+	  using a
+	     literal buffer integrated with the input mapptr so that data
+	  is not
+	     copied.  Checksums are still calculated from scratch each time
+	     rather than by rolling -- this is very slow but simple.
+
+	   * Reshuffle test cases so that they use files generated by
+	  hsmapread,
+	     rather than the source directory.	This makes the tests
+	  quicker and
+	     more reproducible, hopefully without losing coverage.  Further
+	     develop the test driver framework.
+
+	   * Add hsdumpsums debugging tool.
+
+	   * Hex strings (eg strong checksums) are broken up by underscores
+	  for
+	     readability.
+
+	   * Stats now go to the log rather than stdout.
+
+	   * mapptr acts properly when we're skipping/rewinding to data
+	  already
+	     present in the buffer -- it does a copy if required, but not
+	     necessarily real IO.
+
+2000-06-28 01:40  mbp
+
+	* mapptr.c, test-pairs.sh: Fix off-by-one bug in mapptr.  More test
+	  cases.
+
+2000-06-26 17:00  mbp
+
+	* test-decode.sh, test-encode.sh, test-thricenad.sh: Remove
+	  obsolete test cases.
+
+2000-06-26 16:56  mbp
+
+	* map_p.h: More test cases.  Clean up autoconfig: use 64-bit
+	  offsets if possible, use GCC warnings if available.  Be more
+	  fussy about using the right integer types.  Clean up test
+	  directories on successful completion.  Add -D and -x options to
+	  test driver script; make sure it is executable on install.  Add
+	  ':' recognition to hsmapread.  Add more map test strategies to
+	  genmaptest.  Refactor mapptr code.  Add test-pairs: pairs of
+	  files filtered through various edits.
+
+2000-06-26 16:12  mbp
+
+	* configure.in, dec.c, driver.sh, emit.c, emit.h, enc.c, filebuf.c,
+	  fileutil.c, genmaptest.c, hsdecode.c, hsemit.c, hsfilebufcat.c,
+	  hsinhale.c, hsmapread.c, hsmdfour.c, hsmksum.c, hsnad.c, hsync.h,
+	  includes.h, inhale.c, libhsyncinfo.c, litbuf.c, mapptr.c,
+	  mapptr.h, mksum.c, nad.c, netio.c, netio.h, ptrbuf.c, rollsum.c,
+	  search.c, sockcli.c, sockrun.c, socksvr.c, stats.c, sumset.c,
+	  test-mapeof.sh, test-mapover.sh, test-mappipe.sh,
+	  test-mapread.sh, test-maptcp.sh, test-meta.sh, test-nadsum.sh,
+	  test-pairs.sh, test-seq.sh, test-thrice.sh, trace.c, trace.h,
+	  trylog.c, .cvsignore, .indent.pro, Makefile.am, NEWS, README,
+	  THANKS, TODO, acconfig.h, acinclude.m4, checksum.c: More test
+	  cases.  Clean up autoconfig: use 64-bit offsets if possible, use
+	  GCC warnings if available.  Be more fussy about using the right
+	  integer types.  Clean up test directories on successful
+	  completion.  Add -D and -x options to test driver script; make
+	  sure it is executable on install.  Add ':' recognition to
+	  hsmapread.  Add more map test strategies to genmaptest.  Refactor
+	  mapptr code.	Add test-pairs: pairs of files filtered through
+	  various edits.
+
+2000-06-14 13:05  mbp
+
+	* driver.sh: Fix path to find the test script.
+
+2000-06-14 12:10  mbp
+
+	* filebuf.c, test-thricenad.sh: More error checking.
+
+2000-06-14 11:08  mbp
+
+	* netio.c: Better handling of impossible conditions.
+
+2000-06-14 11:06  mbp
+
+	* hsnad.c: Doc.
+
+2000-06-14 11:03  mbp
+
+	* Makefile.am, configure.in: Call the driver.sh script properly
+	  when doing a VPATH build.  Hopefully this is 0.5.3.
+
+2000-06-12 18:08  mbp
+
+	* configure.in: Update help for --disable-trace.
+
+2000-06-12 18:03  mbp
+
+	* checksum.c, configure.in, driver.sh, mapptr.c, rollsum.c,
+	  rollsum.h, test-cmds.sh, test-mappipe.sh, test-maptcp.sh,
+	  test-thricenad.sh: Clean up test scripts; make them work well on
+	  Sun.
+
+2000-06-12 18:02  mbp
+
+	* genmaptest.c: Make sure we never generate zero-byte maps, because
+	  this is not allowed by the API.
+
+2000-06-12 17:53  mbp
+
+	* enc.c, rollsum.c, rollsum.h: Fix handling of signed/unsigned
+	  bytes in rolling sums.
+
+2000-06-12 17:50  mbp
+
+	* configure.in: Don't link to -lnsl unless necessary.
+
+2000-06-12 16:57  mbp
+
+	* sockcli.c, sockrun.c: Fix types and names to compile on Solaris.
+
+2000-06-12 16:56  mbp
+
+	* Makefile.am, NEWS, autogen.sh, configure.in, driver.sh,
+	  test-cat.sh, test-chain.sh, test-cmds.sh, test-decode.sh,
+	  test-encode.sh, test-mapeof.sh, test-mapover.sh, test-mappipe.sh,
+	  test-mapread.sh, test-maptcp.sh, test-md4sizes.sh, test-meta.sh,
+	  test-nadsum.sh, test-newsum.sh, test-seq.sh, test-seqnad.sh,
+	  test-thrice.sh, test-thricenad.sh, test-tricky.sh,
+	  test-usebackups.sh, testfns.sh: Turn around the test scripts so
+	  that they are called by driver.sh rather than calling testfns.sh.
+
+2000-06-12 16:21  mbp
+
+	* .cvsignore: Ignore automake byproducts
+
+2000-06-12 16:20  mbp
+
+	* Makefile.am, acconfig.h, configure.in: Try to fix the handling of
+	  sockets on Solaris.
+
+2000-06-12 15:46  mbp
+
+	* README, checksum.c, checksum.h, dec.c, emit.c, emit.h, enc.c,
+	  filebuf.c, gdproto.c, header, hsfilebufcat.c, hsmapread.c,
+	  hsmdfour.c, hsync.h, includes.h, litbuf.c, mapptr.c, mapptr.h,
+	  membuf.c, mksum.c, mksum.h, nad.c, netio.c, netio.h, private.h,
+	  ptrbuf.c, rollsum.c, rollsum.h, search.c, search.h, socksvr.c,
+	  sumset.c, trace.c, trace.h: Update towards a clean build on
+	  Solaris 64bit with SUNWspro CC.  In particular, distinguish
+	  byte_t from char to clear up signed-ness warnings; and fix some
+	  gcc dependencies in the trace code.  This does not quite work
+	  there yet.
+
+2000-06-09 14:30  mbp
+
+	* .cvsignore, Makefile.am, fileutil.c, includes.h, sockcli.c,
+	  sockrun.c, test-maptcp.sh, trace.c: Add the `sockrun' test
+	  driver, and test the behaviour of mapptr over TCP sockets.
+
+2000-06-07 17:45  mbp
+
+	* Makefile.am, NEWS, emit.c, hsdecode.c, hsemit.c, hsencode.c,
+	  hsinhale.c, hsmapread.c, hsmksum.c, hsnad.c, hsync.h, sockcli.c,
+	  socksvr.c, test-chain.sh, trace.c: Further clear up the
+	  difference between trace (optionally on) and log (always on).
+	  Check arguments to sockcli, and provide better error messages.
+
+2000-06-07 12:16  mbp
+
+	* dec.c, emit.c, filebuf.c, hsmapread.c, hsync.h, includes.h,
+	  nad.c, trace.c, trace.h, util.h: Add support for multiple log
+	  levels.
+
+2000-06-07 09:28  mbp
+
+	* TODO, fileutil.c, nad.c, stats.c: Doc.
+
+2000-06-07 09:27  mbp
+
+	* sockcli.c, socksvr.c: Be more careful about closing sockets.
+
+2000-06-06 00:36  mbp
+
+	* sockcli.c: Reap children and return the right exit status.
+
+2000-06-06 00:12  mbp
+
+	* .cvsignore, Makefile.am, NEWS, filebuf.c, fileutil.c, fileutil.h,
+	  hsdecode.c, mapptr.h, private.h, util.c, sockcli.c: Add sockcli
+	  to test across the network.
+
+2000-06-05 22:27  mbp
+
+	* Makefile.am, socksvr.c: Add -1 option to socksvr to make it
+	  easier to use in tests.
+
+2000-06-05 22:11  mbp
+
+	* Makefile.am: Fiddle.
+
+2000-06-05 21:54  mbp
+
+	* .cvsignore, Makefile.am, acconfig.h, configure.in, includes.h,
+	  nad.c, private.h, socksvr.c, trace.h: Clean up Makefile.am Add
+	  the socksvr program to help test localhost TCP
+
+2000-06-05 11:50  mbp
+
+	* .cvsignore, Makefile.am, README, acconfig.h, configure.in,
+	  hsync.h, libhsyncinfo.c, trace.c: Do libtool library versioning.
+	  Add `libhsyncinfo' tool to show library version, etc.
+
+2000-06-05 11:27  mbp
+
+	* Makefile.am, NEWS, configure.in, hsmapread.c, includes.h,
+	  mapptr.c: Trace is on by default, and can be turned off with
+	  --disable-trace; show the setting while configuring.	Doc.
+
+2000-06-04 22:08  mbp
+
+	* test-mappipe.sh: Doc.
+
+2000-06-04 22:01  mbp
+
+	* mapptr.c: untabify.
+
+2000-06-04 22:00  mbp
+
+	* mapptr.c: Doc.
+
+2000-06-04 20:57  mbp
+
+	* .cvsignore, aclocal.m4: No need to keep these in CVS
+
+2000-06-04 20:53  mbp
+
+	* autogen.sh: Better error messages Run libtool and autoheader.
+
+2000-06-04 20:40  mbp
+
+	* README, includes.h: Drop dependency on zlib
+
+2000-06-04 20:39  mbp
+
+	* ChangeLog, NEWS: Update for 0.5.2
+
+2000-06-04 20:29  mbp
+
+	* INSTALL, config.guess, config.h.in, config.sub, install-sh,
+	  lt-gdb, ltconfig, ltmain.sh, missing, mkinstalldirs: Remove files
+	  that should be autogenerated.
+
+2000-06-04 20:19  mbp
+
+	* README.CVS, autogen.sh: Add a script to ease building from CVS.
+
+2000-06-04 18:50  mbp
+
+	* mapptr.c: Clean up trace.
+
+2000-06-03 03:09  mbp
+
+	* config.h.in, configure.in, header, hose.c, litbuf.c, mapptr.c,
+	  mapptr.h, nad.c: Don't check for zlib because we're not using it.
+	  Doc.  In nad, read only enough data to make progress, not a 32k
+	  window.  This helps liveness a lot.
+
+2000-06-02 17:34  mbp
+
+	* hsync.h: Doc.
+
+2000-06-01 18:16  mbp
+
+	* .indent.pro, dec.c, mapptr.c, nad.c: Fix indent.
+
+2000-06-01 18:02  mbp
+
+	* Makefile.am, acconfig.h, aclocal.m4, compress.c, compress.h,
+	  configure.in, copyq.c, dec.c, emit.h, enc.c, filebuf.c, fileio.c,
+	  fileutil.c, gdproto.c, hex.c, hsemit.c, hsfilebufcat.c,
+	  hsinhale.c, hsmdfour.c, hsmksum.c, hsnad.c, hsync.h,
+	  hsyncproto.h, inbuf.c, includes.h, inhale.c, litbuf.c, mapptr.c,
+	  mapptr.h, mdfour.c, membuf.c, mksum.c, mksum.h, nad.c, netio.c,
+	  netio.h, private.h, ptrbuf.c, rollsum.c, rollsum.h, search.c,
+	  search.h, sumset.c, sumset.h, test-chain.sh, test-nadsum.sh,
+	  test-seq.sh, test-seqnad.sh, test-tricky.sh, test-usebackups.sh,
+	  testfns.sh, trace.c, trace.h, util.c, util.h: Clean up test
+	  scripts.  Make tests assume success after a certain number of
+	  executions so that they don't run for too long.  Indent.
+
+2000-06-01 13:30  mbp
+
+	* Makefile.am, checksum.h, dec.c, enc.c, hsdecode.c, hsencode.c,
+	  hsnad.c, hsync.h, mapptr.c, nad.c, private.h, search.c, search.h,
+	  stats.c, sumset.c, sumset.h, test-delta.sh, test-mappipe.sh,
+	  test-tricky.sh, test-usebackups.sh, testfns.sh: Run test scripts
+	  through /bin/sh, rather than requiring that they be executable --
+	  it's hard to get CVS to keep the permissions straight.  Use the
+	  term `hs_sumset' consistently.  Add -S option to tools to show
+	  stats on completion.	Try to fix window size calculation in
+	  mapptr.
+
+2000-05-25 17:03  mbp
+
+	* Makefile.am, dec.c, mapptr.c, private.h, test-nadsum.sh,
+	  test-thricenad.sh, test-tricky.sh, testfns.sh: Add more test
+	  cases.  Doc.
+
+2000-05-25 15:21  mbp
+
+	* trace.h: Clean up trace macros.
+
+2000-05-23 18:33  mbp
+
+	* .cvsignore, Makefile.am, gen-inbuftest.py, gen-mapover.py,
+	  gen-maptest.py, test-delta.sh, test-mapover.sh, test-mappipe.sh,
+	  test-mapread.sh, test-nadsum.sh, test-newsum.sh, test-seqnad.sh,
+	  test-thricenad.sh: Add more tests; get rid of Python test
+	  generator
+
+2000-05-23 18:33  mbp
+
+	* nad.c: Doc.  Kludge the input size so we don't hang.
+
+2000-05-23 18:25  mbp
+
+	* genmaptest.c: Add more test series.  Emit expected data and
+	  commands - this is now working correctly.
+
+2000-05-23 16:55  mbp
+
+	* genmaptest.c: Start implementing the map-testing scripts in C
+	  rather than in Python.
+
+2000-05-22 18:56  mbp
+
+	* readsums.c: Further implementation of the nad algorithm -- at the
+	  moment it doesn't actually search, but it does do everything
+	  else, and it emits literal data correctly.
+
+2000-05-22 18:53  mbp
+
+	* .cvsignore, Makefile.am, TODO, checksum.h, configure.in, emit.c,
+	  emit.h, enc.c, gdproto.c, hose.c, hsencode.c, hsmksum.c, hsnad.c,
+	  hsync.h, includes.h, litbuf.c, mapptr.c, mksum.c, mksum.h, nad.c,
+	  private.h, rollsum.c, rollsum.h, search.c, search.h, sumset.c,
+	  sumset.h, test-chain.sh, util.c: Further implementation of the
+	  nad algorithm -- at the moment it doesn't actually search, but it
+	  does do everything else, and it emits literal data correctly.
+
+2000-05-21 22:53  mbp
+
+	* .cvsignore, Makefile.am, TODO, checksum.c, checksum.h, dec.c,
+	  enc.c, header, hose.c, hose.h, hsencode.c, hsmksum.c, hsync.h,
+	  includes.h, mapptr.c, mksum.c, mksum.h, netio.c, private.h,
+	  search.c, sumset.c, testall-map.sh, trace.c: Add a new
+	  nonblocking checksum generator, mksum, and a command-line driver,
+	  hsmksum.  Split out code for manipulating sum_set into its own
+	  file.
+
+2000-05-21 20:57  mbp
+
+	* mapptr.c: Doc.
+
+2000-05-21 20:30  mbp
+
+	* hsmapread.c, mapptr.c, mapptr.h: If more data is available than
+	  was requested, give the caller the chance to use it anyhow.
+
+2000-05-09 20:48  mbp
+
+	* configure.in: Add cvs version.
+
+2000-05-09 20:45  mbp
+
+	* Makefile.am, includes.h: gd02 files are not checked in yet.
+
+2000-05-09 20:44  mbp
+
+	* Makefile.am, checksum.c, compress.c, compress.h, configure.in,
+	  copyq.c, dec.c, emit.c, emit.h, enc.c, filebuf.c, fileio.c,
+	  fileutil.c, gdproto.c, header, hex.c, hsdecode.c, hsemit.c,
+	  hsencode.c, hsfilebufcat.c, hsinhale.c, hsmapread.c, hsmdfour.c,
+	  hsync.h, inbuf.c, includes.h, inhale.c, litbuf.c, mapptr.c,
+	  mdfour.c, membuf.c, nad.c, netio.c, ptrbuf.c, readsums.c,
+	  search.c, stats.c, test-mapeof.sh, test-mapover.sh,
+	  test-mappipe.sh, trace.c, util.c: Rearrange headers into one
+	  top-level file, "includes.h" Add support for non-blocking reads
+	  into mapptr, and also into the hsmapread test driver and the test
+	  cases.
+
+2000-05-05 20:22  mbp
+
+	* mapptr.c: Doc.
+
+2000-05-05 20:13  mbp
+
+	* mapptr.c: Accept short reads as long as they cover the requested
+	  data.  More assertions.
+
+2000-05-05 15:26  mbp
+
+	* Makefile.am, mapptr.c, mapptr.h, private.h: Start to implement
+	  easygoing reads in mapptr.c.	Currently hardwired to fill the
+	  whole buffer.
+
+2000-05-05 15:25  mbp
+
+	* .lclintrc: Allow
+
+	    int a; if (a)
+
+2000-05-05 15:25  mbp
+
+	* util.c: Fix return type.
+
+2000-05-05 14:31  mbp
+
+	* Makefile.am, checksum.c, dec.c, enc.c, filebuf.c, hsync.h,
+	  inbuf.c, includes.h, mdfour.c, membuf.c, search.c, util.c: bzero
+	  is not standard, so add a quick implementation Make lclint even
+	  more pleased with me, and in the process fix some minor leaks.
+
+2000-05-05 13:41  mbp
+
+	* checksum.h, netio.h, private.h, util.h: Split up headers a bit.
+
+2000-05-05 13:40  mbp
+
+	* .lclintrc: lclint configuration
+
+2000-05-05 11:54  mbp
+
+	* trace.c: Always include _hs_trace0, so that we can turn trace on
+	  for particular files without recompiling the whole thing.
+
+2000-05-04 18:09  mbp
+
+	* .indent.pro, Makefile.am, checksum.c, copyq.c, dec.c, emit.c,
+	  enc.c, hsmapread.c, includes.h, litbuf.c, mapptr.c, membuf.c,
+	  nad.c, netio.c, private.h, ptrbuf.c, search.c, test-mapover.sh:
+	  Split out some source into readsums.c and gdproto.c.	Call
+	  sum_struct hs_sum_set_t for creamy consistency.  Add some finicky
+	  casts, and declarations for unused parameters to make lclint
+	  happier.  Change trace to include the function name, and to be
+	  written out nicely indented and atomically.
+
+2000-05-04 18:06  mbp
+
+	* gdproto.c, readsums.c: Split out some source into readsums.c and
+	  gdproto.c.  Call sum_struct hs_sum_set_t for creamy consistency.
+	  Add some finicky casts, and declarations for unused parameters to
+	  make lclint happier.	Change trace to include the function name,
+	  and to be written out nicely indented and atomically.
+
+2000-05-04 17:28  mbp
+
+	* trace.c: Better trace, written in an atomic write and including
+	  the calling function name.
+
+2000-05-04 15:35  mbp
+
+	* emit.c, private.h: Make lclint happy with emit.c
+
+2000-05-04 14:37  mbp
+
+	* copyq.c, emit.c, private.h: Make lclint happy with copyq.c.
+
+2000-05-04 12:09  mbp
+
+	* dec.c: Doc.
+
+2000-05-04 12:06  mbp
+
+	* private.h, includes.h, hsyncproto.h: Make lclint happy.
+
+2000-05-04 12:02  mbp
+
+	* hsync.h: Make lclint happy.
+
+2000-05-04 11:56  mbp
+
+	* mapptr.c: Make lclint happy.
+
+2000-05-03 17:23  mbp
+
+	* mapptr.c: Documentation and code cleanup.
+
+2000-05-02 17:32  mbp
+
+	* mapptr.c: Doc.
+
+2000-05-02 17:23  mbp
+
+	* filebuf.c, hsync.h, private.h: The read_ofs functions are now
+	  genuinely obsoleted by mapptr.  Yay!
+
+2000-05-02 17:18  mbp
+
+	* Makefile.am, dec.c, filebuf.c, fileutil.c, hsdecode.c,
+	  hsmapread.c, hsync.h, mapptr.c, private.h: Make mapptr *really*
+	  not care about the length of the file it covers.  Use mapptr to
+	  read the old cached file while decoding.
+
+2000-05-02 16:50  mbp
+
+	* Makefile.am, gen-mapover.py, test-mapover.sh: Add another test
+	  for attempts to map a pointer past EOF.
+
+2000-05-02 16:46  mbp
+
+	* Makefile.am, hsmapread.c, mapptr.c, private.h, test-mapeof.sh:
+	  Make map_ptr detect and cope with EOF, rather than assuming we
+	  know the file length ahead of time.  Add a test case for this.
+
+2000-05-01 18:30  mbp
+
+	* gen-inbuftest.py, mapptr.c, test-mappipe.sh: Use
+	  exponentially-distributed read sizes in test-mappipe.
+
+2000-05-01 00:54  mbp
+
+	* Makefile.am, test-inbuf.sh, test-mappipe.sh: Rename test-inbuf to
+	  test-mappipe, because that's what it really does!
+
+2000-05-01 00:47  mbp
+
+	* nad.c: Documentation only towards a new encoding implementation.
+
+2000-05-01 00:45  mbp
+
+	* .indent.pro, Makefile.am, NEWS, aclocal.m4, configure.in, dec.c,
+	  enc.c, gen-maptest.py, header, hsfilebufcat.c, hsmapread.c,
+	  hsync.h, inbuf.c, mapptr.c, private.h, test-inbuf.sh,
+	  test-mapread.sh: Make sure map_ptr works with sockets and pipes,
+	  and add a test case for this.  The new encoding algorithm will
+	  probably use map_ptr rather than inbuf.  Change map_ptr so that
+	  it copes well with short reads.  Moving towards 0.5.0.  Clean up
+	  hs_inbuf code a little.
+
+2000-05-01 00:42  mbp
+
+	* gen-inbuftest.py: Generate a series of (OFFSET,LENGTH) pairs for
+	  testing map_ptr, and also the output file that ought to be
+	  generated by them.  This version generates forward-moving,
+	  non-skipping ranges suitable for use on a socket or pipe.
+
+2000-04-25 19:17  mbp
+
+	* THANKS: Thanks, dudes!
+
+2000-04-25 13:36  mbp
+
+	* checksum.c, private.h: _hs_free_sum_struct: the structure may
+	  exist with no contents if we tried to read signatures but found
+	  none actually present.  (Really?)
+
+2000-04-25 13:33  mbp
+
+	* .ccmalloc, compress.c, compress.h, copyq.c, dec.c, emit.c,
+	  emit.h, enc.c, filebuf.c, hex.c, hsdecode.c, hsemit.c,
+	  hsfilebufcat.c, hsinhale.c, hsmapread.c, hsmdfour.c, hsync.h,
+	  hsyncproto.h, inbuf.c, inhale.c, litbuf.c, mapptr.c, mdfour.c,
+	  netio.c, private.h, search.c, stats.c, trace.c: Clean up leakage
+	  in checksum hashtable.  Make hsencode and hsdecode close filebufs
+	  before exiting so that it doesn't look like they're leaking.
+
+2000-04-25 13:31  mbp
+
+	* checksum.c: Clean up leakage in checksum hashtable.
+
+2000-04-25 13:17  mbp
+
+	* hsencode.c: Fastidiously close file buffers before exiting to
+	  keep ccmalloc happy.
+
+2000-04-25 13:07  mbp
+
+	* membuf.c, private.h, ptrbuf.c: Remove obsolete generality of
+	  being able to fix the size of an membuf.  It's now very simple:
+	  membufs grow, and ptrbufs stay fixed.
+
+2000-04-25 12:51  mbp
+
+	* .ccmalloc: Add configuration for rproxy.
+
+2000-04-25 12:48  mbp
+
+	* .indent.pro, NEWS, checksum.c, compress.c, compress.h, copyq.c,
+	  dec.c, emit.c, emit.h, enc.c, filebuf.c, hex.c, hsdecode.c,
+	  hsemit.c, hsencode.c, hsfilebufcat.c, hsinhale.c, hsmapread.c,
+	  hsmdfour.c, hsync.h, hsyncproto.h, inbuf.c, inhale.c, litbuf.c,
+	  mapptr.c, mdfour.c, membuf.c, netio.c, private.h, ptrbuf.c,
+	  search.c, stats.c, trace.c: Reindent everything one more time.
+
+2000-04-25 12:39  mbp
+
+	* configure.in: Fix ccmalloc.
+
+2000-04-25 00:32  mbp
+
+	* filebuf.c: Turn off short reads by default.
+
+2000-04-25 00:31  mbp
+
+	* private.h: Make _hs_must_read a bit clearer in behaviour with
+	  EOF.	Remove unused sum_buf structures.
+
+2000-04-25 00:29  mbp
+
+	* netio.c: Make _hs_must_read a bit clearer in behaviour with EOF.
+
+2000-04-25 00:27  mbp
+
+	* litbuf.c: Don't use _hs_copy_ofs to flush the literal buffer.
+
+2000-04-25 00:25  mbp
+
+	* dec.c: Rename _hs_copy_ofs to _hs_dec_copy, because it's pretty
+	  specific to decoding.
+
+2000-04-25 00:24  mbp
+
+	* enc.c: Check that we can only match a short block at the end of
+	  the file.
+
+2000-04-25 00:22  mbp
+
+	* checksum.c: Clear up spare variable in _hs_make_sum_struct, and
+	  add more error checking.
+
+2000-04-25 00:21  mbp
+
+	* README: Explain requirements.
+
+2000-04-24 18:47  mbp
+
+	* Makefile.am: Cleanup test data during `make clean'.
+
+2000-04-24 18:39  mbp
+
+	* .cvsignore, Makefile.am, header, hsmapread.c, hsync.h,
+	  includes.h, private.h, gen-maptest.py, test-mapread.sh: Add a
+	  regression suite for map_ptr input.
+
+2000-04-24 18:08  mbp
+
+	* fileio.c, mapptr.c: Split map_ptr into its own source file.
+
+2000-04-24 17:26  mbp
+
+	* AUTHORS, Makefile.am, NEWS, THANKS, TODO: Doc.
+
+2000-04-24 17:24  mbp
+
+	* configure.in: Call this 0.4.1.
+
+2000-04-23 15:48  mbp
+
+	* README.CVS: Clearer explanation of requirements.  Thanks to Neale
+	  Banks.
+
+2000-04-23 02:50  mbp
+
+	* testfns.sh: Store testing temp files in a subdirectory of the
+	  build directory.  Putting them in /tmp is bad: things will break
+	  if e.g. more than one person tries to build the package.
+
+2000-04-23 02:47  mbp
+
+	* README: Doc.
+
+2000-04-23 02:44  mbp
+
+	* test-md4sizes.sh: Don't trace shell script.
+
+2000-04-23 02:28  mbp
+
+	* Makefile.am, test-cmds.sh, NEWS: Don't call the commands file
+	  cmds.txt, or it will confuse the documentation-counting robot.
+
+2000-04-23 02:24  mbp
+
+	* Makefile.am, test-thrice.sh: Make the regression suite work
+	  properly when the build directory is not the srcdir.
+
+2000-04-23 02:20  mbp
+
+	* Makefile.am, NEWS, test-cat.sh, test-chain.sh, test-cmds.sh,
+	  test-decode.sh, test-encode.sh, test-md4sizes.sh, test-meta.sh,
+	  test-seq.sh, test-thrice.sh, testfns.sh: Make the regression
+	  suite work properly when the build directory is not the srcdir.
+
+2000-04-23 01:33  mbp
+
+	* filebuf.c: Don't trace on EOF; make sure read errors are returned
+	  properly.
+
+2000-04-23 01:27  mbp
+
+	* netio.c: Allow EOF while reading integers.  Don't allow
+	  persistent short writes or errors while writing integers.
+
+2000-04-23 01:26  mbp
+
+	* checksum.c: Clean up IO handling while reading sigs.
+
+2000-04-23 01:14  mbp
+
+	* filebuf.c, hsdecode.c, netio.c: More IO error messages.  Don't
+	  allow EOF in the middle of reading an integer.
+
+2000-04-23 00:51  mbp
+
+	* dec.c: Reindent
+
+2000-04-23 00:46  mbp
+
+	* test-chain.sh: Oops: fix editing mistake.
+
+2000-04-23 00:45  mbp
+
+	* hsdecode.c, hsencode.c: Add -D option to show debugging trace.
+
+2000-04-23 00:44  mbp
+
+	* TODO: Regression suite.
+
+2000-04-23 00:26  mbp
+
+	* README.CVS: Link to SF documentation.
+
+2000-04-22 23:58  mbp
+
+	* fileio.c: Remove nostalgia for rsync.
+
+2000-04-22 23:46  mbp
+
+	* README.CVS: Explain how to build from CVS.
+
+2000-04-22 23:44  mbp
+
+	* ltconfig, ltmain.sh: Keep libtool stuff in CVS to make anoncvs
+	  use easier
+
+2000-04-22 23:37  mbp
+
+	* COPYING, INSTALL, README.CVS, THANKS, config.guess, config.sub,
+	  install-sh, missing, mkinstalldirs: Store automake/libtool stuff
+	  in CVS to make anoncvs builds easier.
+
+2000-04-22 23:04  mbp
+
+	* Makefile.am, TODO, dec.c, filebuf.c, hsemit.c, hsfilebufcat.c,
+	  hsinhale.c, hsync.h, netio.c, test-cat.sh, test-thrice.sh,
+	  trace.c: Move decode-specific copy code into dec.c.  Turn off
+	  trace during tests unless -D is specified.
+
+2000-04-22 01:41  mbp
+
+	* .cvsignore, Makefile.am, hsfilebufcat.c, test-cat.sh: Add a test
+	  that filebuf input works OK
+
+2000-04-22 01:10  mbp
+
+	* Makefile.am, test-md4sizes.sh: Test md4 produces the same sum
+	  whatever the input chunks.
+
+2000-04-22 01:06  mbp
+
+	* testfns.sh: Make the test directory if it does not exist
+
+2000-04-22 00:51  mbp
+
+	* test-meta.sh, testfns.sh: test framework and new meta-test
+
+2000-04-22 00:50  mbp
+
+	* .emacsindent: Common indent style header.
+
+2000-04-22 00:49  mbp
+
+	* .cvsignore, Makefile.am, TODO, dec.c, emit.c, filebuf.c,
+	  hsemit.c, hsinhale.c, hsmdfour.c, hsync.h, litbuf.c,
+	  make-cmds.py, netio.c, private.h, test-chain.sh, test-cmds.sh,
+	  test-decode.sh, test-encode.sh, test-seq.sh, test-thrice.sh: Add
+	  hsmdfour test driver.  Try to check file checksum during decode.
+	  Factor out the common code in test cases.
+
+2000-04-22 00:42  mbp
+
+	* mdfour.c: Make mdfour_update queue up any waiting data, rather
+	  than assuming it's at the end every time.
+
+2000-04-19 17:22  mbp
+
+	* checksum.c, dec.c, emit.c, enc.c, hsync.h, inhale.c, private.h:
+	  Emit file checksums while encoding.
+
+2000-04-18 20:15  mbp
+
+	* mdfour.c: Remove static variables.
+
+2000-04-18 20:09  mbp
+
+	* configure.in: Moving towards 0.4.0.
+
+2000-04-18 19:27  mbp
+
+	* ptrbuf.c: zlib is out for the moment.
+
+2000-04-18 19:27  mbp
+
+	* filebuf.c, hsync.h: Put back hs_filebuf_from_file to ease
+	  migration.
+
+2000-04-18 19:18  mbp
+
+	* Makefile.am, checksum.c, dec.c, enc.c, filebuf.c, fileio.c,
+	  hsdecode.c, hsemit.c, hsencode.c, hsinhale.c, hsync.h, inbuf.c,
+	  inhale.c, membuf.c, netio.c, private.h, test-chain.sh: Don't use
+	  stdio for filebuf object, but go straight to read/write.  Cope
+	  with short reads/writes -- this might not be completely working
+	  as yet.
+
+2000-04-18 14:00  mbp
+
+	* filebuf.c: Just reindent.
+
+2000-04-18 12:46  mbp
+
+	* Makefile.am, checksum.c, filebuf.c, fileio.c, hsync.h,
+	  hsyncproto.h, includes.h, litbuf.c, membuf.c, private.h,
+	  ptrbuf.c: Add the map_ptr interface from rsync.  Add an abstract
+	  off_t interface.
+
+2000-04-17 15:52  mbp
+
+	* trace.c: Compile cleanly without trace.
+
+2000-04-16 18:37  mbp
+
+	* mdfour.h: No longer needed.
+
+2000-04-16 18:35  mbp
+
+	* emit.c, enc.c, hsemit.c, hsinhale.c, hsyncproto.h, inhale.c,
+	  litbuf.c, private.h, test-cmds.sh: Fix a bug in emitting short
+	  commands for one-byte signature or literal chunks.  Clear up the
+	  code for signature or literal chunks.  Add space in the protocol
+	  for the `checksum' command, not presently implemented.
+
+2000-04-12 19:00  mbp
+
+	* Makefile.am, checksum.c, enc.c, private.h, search.c, stats.c:
+	  Clean up the search code; count the occurrence of false weak
+	  matches.
+
+2000-04-12 18:58  mbp
+
+	* test-seq.sh, test-thrice.sh: Add another test case!
+
+2000-04-12 00:00  mbp
+
+	* Makefile.am, dec.c, enc.c, hsync.h, stats.c: Show stats in
+	  human-readable form.
+
+2000-04-11 19:23  mbp
+
+	* TODO: Looks like autconf needs this
+
+2000-04-11 19:21  mbp
+
+	* TODO: Unneeded.
+
+2000-04-11 19:19  mbp
+
+	* copyq.c, dec.c, enc.c, hex.c, hsync.h, hsyncproto.h, inbuf.c,
+	  includes.h, litbuf.c, private.h, test-chain.sh, test-thrice.sh,
+	  trace.c: Results of more code reviews:
+
+	  More assertions.  Better trace output.  Add the PAINFUL_HONESTY
+	  option to check that the weak signatures are actually rolling
+	  correctly.  Fix a bug in the generation of signatures near the
+	  end of the file.  Cope when there is no old signature.
+
+2000-04-11 18:11  mbp
+
+	* .cvsignore, Makefile.am, acconfig.h, config.h.in, configure.in:
+	  Clean up -D commands in autoconf.
+
+2000-04-09 23:15  mbp
+
+	* Makefile.am, configure.in, test-thrice.sh: Add test-thrice, which
+	  makes sure that the generated signature is stable and independant
+	  of the basis signature.
+
+2000-04-09 23:10  mbp
+
+	* inbuf.c: Clean up trace.
+
+2000-04-09 22:00  mbp
+
+	* hsync.h, trace.c: Export library version.
+
+2000-04-09 21:25  mbp
+
+	* hsync.h: Add hs_trace_to, which also turns on/off trace.
+
+2000-04-09 21:00  mbp
+
+	* dec.c, hsync.h, includes.h, private.h, trace.c: Clean up logging
+	  so that callers can send it into their own routines.
+
+2000-04-09 20:35  mbp
+
+	* Makefile.am, configure.in: Ship 0.3.2.
+
+2000-04-09 20:32  mbp
+
+	* Makefile.am, configure.in, emit.c, hsemit.c, hsinhale.c,
+	  inhale.c, make-cmds.py, private.h, test-cmds.sh, trace.c: Trace
+	  can be turned off at runtime even if it's compiled in.  We now
+	  auto-generate a command test file which is meant to cover all
+	  interesting possibilities.  Unfortunately this doesn't catch our
+	  bug :-( Fix hsinhale so that it stops correctly on EOF.
+
+2000-04-09 17:23  mbp
+
+	* .cvsignore, Makefile.am, hsinhale.c, inhale.c, private.h: Add a
+	  hsinhale binary to allow generation of commands for testing.
+	  Don't install hsinstall or hsemit.
+
+2000-04-09 16:43  mbp
+
+	* Makefile.am, checksum.c, copyq.c, dec.c, emit.c, emit.h, enc.c,
+	  hsemit.c, hsync.h, inbuf.c, inhale.c, litbuf.c, netio.c,
+	  private.h: Remove obsolete rs_* prefix.  Move code for
+	  recognizing commands into inhale.c, so that we can build a test
+	  case on it.
+
+2000-04-09 15:57  mbp
+
+	* .cvsignore, Makefile.am, copyq.c, emit.c, emit.h, enc.c,
+	  hsemit.c, hsyncproto.h, litbuf.c, private.h: Add new op_kind
+	  type, rather than overloading opcodes to say what kind of op they
+	  are.	Add new hsemit tool to convert text forms into instruction
+	  streams for use in testing.
+
+2000-04-08 00:33  mbp
+
+	* enc.c: Independently calculate checksums for the new file.  This
+	  seems to make things at least stable again; it's a bit
+	  inefficient.	Also, we now actually emit the checksum for the
+	  final short block.
+
+2000-04-07 23:13  mbp
+
+	* litbuf.c: Clean up log messages.
+
+2000-04-07 23:12  mbp
+
+	* enc.c, private.h: Of course, COPY commands don't *have* to follow
+	  each other.  If we get two non-contiguous ones, then we flush and
+	  start again.
+
+2000-04-07 23:05  mbp
+
+	* copyq.c: Of course, COPY commands don't *have* to follow each
+	  other.  If we get two non-contiguous ones, then we flush and
+	  start again.
+
+2000-04-07 18:16  mbp
+
+	* Makefile.am, copyq.c, enc.c, private.h: Collect matches up into
+	  as few big COPYs as possible.
+
+2000-04-07 18:14  mbp
+
+	* TODO: Documentation is good.
+
+2000-04-07 17:51  mbp
+
+	* search.c: Cope with empty old signatures.
+
+2000-04-07 17:50  mbp
+
+	* enc.c: Doc.  Try to fix problems with different block sizes
+	  between the old and new signatures.
+
+2000-04-07 17:49  mbp
+
+	* checksum.c: Doc.
+
+2000-04-07 17:25  mbp
+
+	* test-chain.sh: Show progress indicator.
+
+2000-04-06 21:01  mbp
+
+	* configure.in: Call this 0.3.1.
+
+2000-04-06 21:01  mbp
+
+	* enc.c: Doc.
+
+2000-04-06 20:23  mbp
+
+	* inbuf.c: Better assert messages.
+
+2000-04-06 20:22  mbp
+
+	* filebuf.c, hsync.h: Support cache streams attached to
+	  hs_filebuf_t
+
+2000-04-06 20:20  mbp
+
+	* dec.c, emit.c, hsyncproto.h: Cope with encoding COPY with offset
+	  less than 256.
+
+2000-04-06 18:50  mbp
+
+	* emit.c: Better error messages for IO.  Cope with encoding COPY
+	  with offset less than 256.
+
+2000-04-06 18:49  mbp
+
+	* enc.c: Better error messages for IO.	If we fail while reading
+	  the signature from the client then do not give up but rather
+	  generate a from-scratch encoding so that the client will have a
+	  good signature for next time.
+
+2000-04-06 18:48  mbp
+
+	* private.h: Better error macros.
+
+2000-04-06 18:48  mbp
+
+	* netio.c: Better error messages for IO.
+
+2000-04-06 18:20  mbp
+
+	* ptrbuf.c: Pointer buffers can be zero-length.
+
+2000-04-06 18:20  mbp
+
+	* Makefile.am, configure.in: Configure-time option to turn on
+	  trace.
+
+2000-04-05 17:17  mbp
+
+	* Makefile.am, checksum.c, hsync.h, mdfour.c, mdfour.h: Export md4
+	  because we want to use it in caching -- I guess we may as well
+	  let people get at the code since it's here.
+
+2000-04-05 16:09  mbp
+
+	* configure.in: Should be called 0.3.0.
+
+2000-04-05 16:09  mbp
+
+	* .cvsignore: Ignore GPG signatures.
+
+2000-04-05 14:47  mbp
+
+	* .cvsignore, aclocal.m4, configure.in, enc.c, private.h,
+	  test-chain.sh, test-encode.sh: Trace should be off by default.
+
+2000-04-05 14:41  mbp
+
+	* Makefile.am: Make sure test drivers and data get into the
+	  distribution.
+
+2000-03-16 19:39  mbp
+
+	* compress.h, filebuf.c, hsync.h, inbuf.c, membuf.c, ptrbuf.c,
+	  search.c: Various cleanups.
+
+2000-03-16 14:51  mbp
+
+	* Makefile.am, aclocal.m4, checksum.c, compress.c, compress.h,
+	  dec.c, emit.c, enc.c, filebuf.c, hsdecode.c, hsencode.c, hsync.h,
+	  hsyncproto.h, inbuf.c, includes.h, litbuf.c, mdfour.c, mdfour.h,
+	  membuf.c, netio.c, private.h, ptrbuf.c, search.c, test-chain.sh,
+	  test-decode.sh, test-encode.sh: Clean up encoding implementation.
+	  Add space in the protocol for 64-bit offsets.  Fix a memory leak
+	  in encoding.	Add ptrbuf to do abstract IO to a fixed buffer.
+	  When encoding, the new signature block size can be different from
+	  the old block size.  Encode copy commands using the optimal
+	  command byte rather than always using COPY_INT_INT.  Add
+	  test-chained to make sure we can swallow our own output.  Add
+	  parameter to hsencode to specify the new block size.
+
+2000-03-01 19:26  mbp
+
+	* sig.c: Empty file.
+
+2000-03-01 00:25  mbp
+
+	* filebuf.c, membuf.c, private.h: Add dogtags to membufs and
+	  filebufs so that we can identify their horribly-mutilated bodies.
+
+2000-02-29 20:43  mbp
+
+	* .cvsignore: Ignore generated files.
+
+2000-02-29 15:58  mbp
+
+	* .cvsignore, AUTHORS, ChangeLog, Makefile.am, NEWS, README,
+	  aclocal.m4, checksum.c, compress.c, compress.h, config.h.in,
+	  configure.in, dec.c, emit.c, enc.c, filebuf.c, hsdecode.c,
+	  hsencode.c, hsync.h, hsyncproto.h, inbuf.c, includes.h, litbuf.c,
+	  lt-gdb, mdfour.c, mdfour.h, membuf.c, netio.c, private.h,
+	  search.c, sig.c, test-chain.sh, test-decode.sh, test-encode.sh:
+	  New library, based on libsync but mostly rewritten:
+
+	   * Differences and signatures are squished into a single
+	     binary-encoded stream using variable-length commands
+
+	   * We don't require session objects anymore; they just complicate
+	     life.  The code is generally simpler.
+
+	   * We only do this encoding format.  This is only conceptually
+	  related
+	     to rsync now; they don't understand each other.
+
